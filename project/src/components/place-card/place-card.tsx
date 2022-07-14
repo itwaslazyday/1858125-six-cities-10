@@ -1,20 +1,23 @@
+import {Link} from 'react-router-dom';
+
 type PlaceCardProps = {
   isPremium: boolean;
   price: number;
   rating: number;
   description: string;
   placeType: string;
+  id: number;
 };
 
 function PlaceCard(props: PlaceCardProps): JSX.Element {
-  const {isPremium, price, rating, description, placeType} = props;
+  const {id, isPremium, price, rating, description, placeType} = props;
   return (
     <article className="cities__card place-card">
       {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="\#">
+        <Link to={`offer/${id}`}>
           <img className="place-card__image" src="img/apartment-01.jpg" width="260" height="200" alt="Place"/>
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -36,7 +39,9 @@ function PlaceCard(props: PlaceCardProps): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="\#">{description}</a>
+          <Link to={`offer/${id}`}>
+            {description}
+          </Link>
         </h2>
         <p className="place-card__type">{placeType}</p>
       </div>

@@ -1,6 +1,10 @@
 import SiteHeader from '../../components/site-header/site-header';
+import {useParams} from 'react-router-dom';
+import {places} from '../../fish/fish-data';
 
 function PropertyPage(): JSX.Element {
+  const params = useParams();
+  const tappedPlace = places.find((place) => String(place.id) === params.id);
   return (
     <div className="page">
       <SiteHeader headerFavoriteCount={3}/>
@@ -35,7 +39,7 @@ function PropertyPage(): JSX.Element {
               </div>
               <div className="property__name-wrapper">
                 <h1 className="property__name">
-                  Beautiful &amp; luxurious studio at great location
+                  {tappedPlace?.description}
                 </h1>
                 <button className="property__bookmark-button button" type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">
@@ -49,7 +53,7 @@ function PropertyPage(): JSX.Element {
                   <span style={{ width: '80%' }}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="property__rating-value rating__value">4.8</span>
+                <span className="property__rating-value rating__value">{tappedPlace?.rating}</span>
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
@@ -63,7 +67,7 @@ function PropertyPage(): JSX.Element {
                 </li>
               </ul>
               <div className="property__price">
-                <b className="property__price-value">&euro;120</b>
+                <b className="property__price-value">&euro;{tappedPlace?.price}</b>
                 <span className="property__price-text">&nbsp;night</span>
               </div>
               <div className="property__inside">
