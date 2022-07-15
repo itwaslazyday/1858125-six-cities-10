@@ -33,7 +33,7 @@ function App({placeCount}: AppProps): JSX.Element {
             element={<LoginPage />}
           />
           <Route
-            path={`${AppRoute.Offer}/:id`}
+            path={AppRoute.Offer}
             element={<PropertyPage />}
           />
           <Route
