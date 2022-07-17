@@ -1,7 +1,7 @@
 import React from 'react';
 type FormRatingProps = {
   index: number;
-  fieldChangeHandler: (evt: any) => void;
+  fieldChangeHandler: (evt: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 function FormRating(props: FormRatingProps): JSX.Element {

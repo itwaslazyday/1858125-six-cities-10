@@ -9,8 +9,7 @@ function FormReview(): JSX.Element {
     }
   );
 
-  // const fieldChangeHandler = (evt: React.ChangeEvent<HTMLInputElement>) => {
-  const fieldChangeHandler = (evt: any) => {
+  const fieldChangeHandler = (evt: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
     const {name, value} = evt.target;
     setFormState({...formState, [name]: value});
   };

@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import PlaceCard from '../place-card/place-card';
 
-type PlaceListProps = {
+type PlacesListProps = {
   places: {
     isPremium: boolean;
     bookmarks: boolean;
@@ -13,7 +13,7 @@ type PlaceListProps = {
   }[]
 };
 
-function PlaceList(props: PlaceListProps): JSX.Element {
+function PlacesList(props: PlacesListProps): JSX.Element {
   const {places} = props;
   const [state, setState] = useState(0);
 
@@ -31,4 +31,4 @@ function PlaceList(props: PlaceListProps): JSX.Element {
   );
 }
 
-export default PlaceList;
+export default PlacesList;
