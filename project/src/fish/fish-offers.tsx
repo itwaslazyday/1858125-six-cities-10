@@ -1,5 +1,6 @@
 type Place = {
   isPremium: boolean;
+  bookmarks: boolean;
   price: number;
   rating: number;
   description: string;
@@ -10,14 +11,16 @@ type Place = {
 const places: Place[] = [
   {
     isPremium: true,
+    bookmarks: true,
     price: 120,
     rating: 80,
-    description: 'Beautiful &amp; luxurious apartment at great location',
+    description: 'Beautiful & luxurious apartment at great location',
     placeType: 'Apartment',
     id: 0,
   },
   {
     isPremium: false,
+    bookmarks: true,
     price: 80,
     rating: 80,
     description: 'Wood and stone place',
@@ -26,6 +29,7 @@ const places: Place[] = [
   },
   {
     isPremium: false,
+    bookmarks: false,
     price: 132,
     rating: 80,
     description: 'Canal View Prinsengracht',
@@ -34,6 +38,7 @@ const places: Place[] = [
   },
   {
     isPremium: true,
+    bookmarks: false,
     price: 180,
     rating: 100,
     description: 'Nice, cozy, warm big bed apartment',
@@ -42,9 +47,10 @@ const places: Place[] = [
   },
   {
     isPremium: false,
+    bookmarks: true,
     price: 80,
     rating: 80,
-    description: 'Wood and stone place',
+    description: 'Fake hostel',
     placeType: 'Private room',
     id: 4,
   },

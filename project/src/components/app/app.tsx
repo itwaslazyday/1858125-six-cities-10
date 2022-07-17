@@ -6,6 +6,7 @@ import MainPage from '../../pages/main-page/main-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PropertyPage from '../../pages/property-page/property-page';
 import PrivateRoute from '../private-route/private-route';
+import {places} from '../../fish/fish-offers';
 
 type AppProps = {
   placeCount: number;
@@ -23,8 +24,8 @@ function App({placeCount}: AppProps): JSX.Element {
           <Route
             path={AppRoute.Favorites}
             element={
-              <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-                <FavoritesPage />
+              <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+                <FavoritesPage places={places.filter((place) => place.bookmarks)}/>
               </PrivateRoute>
             }
           />
