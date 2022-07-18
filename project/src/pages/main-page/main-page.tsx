@@ -1,7 +1,7 @@
-import {places, cities} from '../../fish/fish-data';
+import {places, cities} from '../../fish/fish-offers';
 import SiteHeader from '../../components/site-header/site-header';
 import Location from '../../components/location/location';
-import PlaceCard from '../../components/place-card/place-card';
+import PlacesList from '../../components/places-list/places-list';
 
 type MainPageProps = {
   placeCount: number;
@@ -40,9 +40,7 @@ function MainPage({placeCount}: MainPageProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                {places.map((place) => <PlaceCard key={place.id} {...place}/>)}
-              </div>
+              <PlacesList places={places}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>
