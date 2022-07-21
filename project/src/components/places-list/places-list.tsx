@@ -1,16 +1,9 @@
 import {useState} from 'react';
 import PlaceCard from '../place-card/place-card';
+import {Place} from '../../types/types';
 
 type PlacesListProps = {
-  places: {
-    isPremium: boolean;
-    bookmarks: boolean;
-    price: number;
-    rating: number;
-    description: string;
-    placeType: string;
-    id: number;
-  }[]
+  places: Place[]
 };
 
 function PlacesList(props: PlacesListProps): JSX.Element {

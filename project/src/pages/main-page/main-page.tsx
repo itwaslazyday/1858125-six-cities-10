@@ -2,12 +2,14 @@ import {places, cities} from '../../fish/fish-offers';
 import SiteHeader from '../../components/site-header/site-header';
 import Location from '../../components/location/location';
 import PlacesList from '../../components/places-list/places-list';
+import Map from '../../components/map/map';
 
 type MainPageProps = {
   placeCount: number;
 };
 
 function MainPage({placeCount}: MainPageProps): JSX.Element {
+
   return (
     <div className="page page--gray page--main">
       <SiteHeader headerFavoriteCount={3}/>
@@ -16,7 +18,7 @@ function MainPage({placeCount}: MainPageProps): JSX.Element {
         <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
-              {cities.map((city) => <Location key={city} name={city}/>)}
+              {cities.map((city) => <Location key={city.title} name={city.title}/>)}
             </ul>
           </section>
         </div>
@@ -43,7 +45,7 @@ function MainPage({placeCount}: MainPageProps): JSX.Element {
               <PlacesList places={places}/>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <Map />
             </div>
           </div>
         </div>

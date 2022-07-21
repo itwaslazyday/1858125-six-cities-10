@@ -1,6 +1,8 @@
 import {Link} from 'react-router-dom';
+// import {Place} from '../../types/types';
 
 type PlaceCardProps = {
+  // ...Place;
   isPremium: boolean;
   bookmarks: boolean;
   price: number;
@@ -10,6 +12,7 @@ type PlaceCardProps = {
   id: number;
   mouseOverHandler: (id: number) => void;
 };
+
 
 function PlaceCard(props: PlaceCardProps): JSX.Element {
   const {id, isPremium, bookmarks, price, rating, description, placeType, mouseOverHandler} = props;
