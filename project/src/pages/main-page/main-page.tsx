@@ -3,12 +3,19 @@ import SiteHeader from '../../components/site-header/site-header';
 import Location from '../../components/location/location';
 import PlacesList from '../../components/places-list/places-list';
 import Map from '../../components/map/map';
+import {useState} from 'react';
+import {Place} from '../../types/types';
 
 type MainPageProps = {
   placeCount: number;
 };
 
 function MainPage({placeCount}: MainPageProps): JSX.Element {
+
+  const [state, setState] = useState<Place | undefined>(undefined);
+  const checkPlaceOnMap = (place: Place) => {
+    setState(places.find((item) => item.id === place.id));
+  };
 
   return (
     <div className="page page--gray page--main">
@@ -42,10 +49,10 @@ function MainPage({placeCount}: MainPageProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <PlacesList places={places}/>
+              <PlacesList places={places} checkPlaceOnMap={checkPlaceOnMap}/>
             </section>
             <div className="cities__right-section">
-              <Map />
+              <Map places={places} classPrefix='cities' city={cities[3]} selectedPoint={state}/>
             </div>
           </div>
         </div>

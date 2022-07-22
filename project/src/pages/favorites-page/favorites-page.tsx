@@ -1,16 +1,9 @@
 import SiteHeader from '../../components/site-header/site-header';
 import PlaceCard from '../../components/place-card/place-card';
+import {Place} from '../../types/types';
 
 type FavoritesPageProps = {
-  places: {
-    isPremium: boolean;
-    bookmarks: boolean;
-    price: number;
-    rating: number;
-    description: string;
-    placeType: string;
-    id: number;
-  }[]
+  places: Place[]
 };
 
 
@@ -33,8 +26,8 @@ function FavoritesPage(props: FavoritesPageProps): JSX.Element {
                   </div>
                 </div>
                 <div className="favorites__places">
-                  <PlaceCard {...places[0]} mouseOverHandler={() => null}/>
-                  <PlaceCard {...places[1]} mouseOverHandler={() => null}/>
+                  <PlaceCard place={places[0]} classPrefix='cities' checkPlaceOnMap={() => null}/>
+                  <PlaceCard place={places[1]} classPrefix='cities' checkPlaceOnMap={() => null}/>
                 </div>
               </li>
 
@@ -47,7 +40,7 @@ function FavoritesPage(props: FavoritesPageProps): JSX.Element {
                   </div>
                 </div>
                 <div className="favorites__places">
-                  <PlaceCard {...places[2]} mouseOverHandler={() => null}/>
+                  <PlaceCard place={places[2]} classPrefix='cities' checkPlaceOnMap={() => null}/>
                 </div>
               </li>
             </ul>

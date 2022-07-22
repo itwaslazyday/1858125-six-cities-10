@@ -25,7 +25,7 @@ function App({placeCount}: AppProps): JSX.Element {
             path={AppRoute.Favorites}
             element={
               <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
-                <FavoritesPage places={places.filter((place) => place.bookmarks)}/>
+                <FavoritesPage places={places.filter((place) => place.isFavorite)}/>
               </PrivateRoute>
             }
           />
@@ -35,7 +35,7 @@ function App({placeCount}: AppProps): JSX.Element {
           />
           <Route
             path={AppRoute.Offer}
-            element={<PropertyPage />}
+            element={<PropertyPage places={places}/>}
           />
           <Route
             path="*"

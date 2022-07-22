@@ -1,29 +1,51 @@
 import {useRef, useEffect} from 'react';
-import {places, cities} from '../../fish/fish-offers';
 import useCreateMap from '../../hooks/useCreateMap/useCreateMap';
-import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import {Place, City} from '../../types/types';
+import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../const';
+import {Icon, Marker} from 'leaflet';
 
-function Map (): JSX.Element {
+type MapProps = {
+  places: Place[];
+  classPrefix: string;
+  city: City;
+  selectedPoint: Place | undefined;
+};
+
+const defaultCustomIcon = new Icon({
+  iconUrl: URL_MARKER_DEFAULT,
+  iconSize: [40, 40],
+  iconAnchor: [20, 40]
+});
+
+const currentCustomIcon = new Icon({
+  iconUrl: URL_MARKER_CURRENT,
+  iconSize: [40, 40],
+  iconAnchor: [20, 40]
+});
+
+function Map ({classPrefix, places, city, selectedPoint}: MapProps): JSX.Element {
   const mapRef = useRef(null);
-  const map = useCreateMap(mapRef, cities[3]);
+  const map = useCreateMap(mapRef, city);
 
   useEffect(() => {
     if (map) {
       places.forEach((place) => {
-        leaflet
-          .marker({
-            lat: place.lat,
-            lng: place.lng,
-          }
-          )
+        const marker = new Marker({
+          lat: place.location.latitude,
+          lng: place.location.longitude,
+        });
+        marker
+          .setIcon(selectedPoint !== undefined && place.id === selectedPoint.id
+            ? currentCustomIcon
+            : defaultCustomIcon)
           .addTo(map);
       });
     }
-  }, [map, places]);
+  }, [map, places, selectedPoint]);
 
   return (
-    <section className="cities__map map" ref={mapRef}></section>
+    <section className={`${classPrefix}__map map`} ref={mapRef}></section>
   );
 }
 
