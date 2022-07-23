@@ -13,8 +13,13 @@ type MainPageProps = {
 function MainPage({placeCount}: MainPageProps): JSX.Element {
 
   const [state, setState] = useState<Place | undefined>(undefined);
-  const checkPlaceOnMap = (place: Place) => {
+
+  const handlePlaceHover = (place: Place) => {
     setState(places.find((item) => item.id === place.id));
+  };
+
+  const handlePlaceLeave = () => {
+    setState(undefined);
   };
 
   return (
@@ -49,7 +54,7 @@ function MainPage({placeCount}: MainPageProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <PlacesList places={places} checkPlaceOnMap={checkPlaceOnMap}/>
+              <PlacesList places={places} handlePlaceHover={handlePlaceHover} handlePlaceLeave={handlePlaceLeave}/>
             </section>
             <div className="cities__right-section">
               <Map places={places} classPrefix='cities' city={cities[3]} selectedPoint={state}/>

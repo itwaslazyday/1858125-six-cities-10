@@ -4,14 +4,18 @@ import {Place} from '../../types/types';
 type PlaceCardProps = {
   place: Place;
   classPrefix: string;
-  checkPlaceOnMap: (place: Place) => void;
+  handlePlaceHover?: (place: Place) => void;
+  handlePlaceLeave?: () => void;
 };
 
 
-function PlaceCard({place, classPrefix, checkPlaceOnMap}: PlaceCardProps): JSX.Element {
+function PlaceCard({place, classPrefix, handlePlaceHover, handlePlaceLeave}: PlaceCardProps): JSX.Element {
   const {id, isPremium, isFavorite, price, rating, title, type, previewImage} = place;
   return (
-    <article className={`${classPrefix}__card place-card`} onMouseOver={() => checkPlaceOnMap(place)}>
+    <article className={`${classPrefix}__card place-card`}
+      onMouseOver={() => {if (handlePlaceHover) {handlePlaceHover(place);}}}
+      onMouseLeave={() => {if (handlePlaceLeave) {handlePlaceLeave();}}}
+    >
       {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
       <div className={`${classPrefix}__image-wrapper place-card__image-wrapper`}>
         <Link to={`/offer/${id}`}>

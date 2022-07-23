@@ -10,7 +10,7 @@ function NearbyPlacesList(props: NearbyPlacesListProps): JSX.Element {
 
   return (
     <div className="near-places__list places__list">
-      {places.map((place) => <PlaceCard key={place.id} place={place} classPrefix='near-places' checkPlaceOnMap={() => null}/>)}
+      {places.map((place) => <PlaceCard key={place.id} place={place} classPrefix='near-places'/>)}
     </div>
   );
 }

@@ -26,8 +26,8 @@ function FavoritesPage(props: FavoritesPageProps): JSX.Element {
                   </div>
                 </div>
                 <div className="favorites__places">
-                  <PlaceCard place={places[0]} classPrefix='cities' checkPlaceOnMap={() => null}/>
-                  <PlaceCard place={places[1]} classPrefix='cities' checkPlaceOnMap={() => null}/>
+                  <PlaceCard place={places[0]} classPrefix='cities'/>
+                  <PlaceCard place={places[1]} classPrefix='cities'/>
                 </div>
               </li>
 
@@ -40,7 +40,7 @@ function FavoritesPage(props: FavoritesPageProps): JSX.Element {
                   </div>
                 </div>
                 <div className="favorites__places">
-                  <PlaceCard place={places[2]} classPrefix='cities' checkPlaceOnMap={() => null}/>
+                  <PlaceCard place={places[2]} classPrefix='cities'/>
                 </div>
               </li>
             </ul>

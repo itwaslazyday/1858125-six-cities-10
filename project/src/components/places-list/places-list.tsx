@@ -3,14 +3,15 @@ import {Place} from '../../types/types';
 
 type PlacesListProps = {
   places: Place[];
-  checkPlaceOnMap: (place: Place) => void;
+  handlePlaceHover: (place: Place) => void;
+  handlePlaceLeave: () => void;
 };
 
-function PlacesList({places, checkPlaceOnMap}: PlacesListProps): JSX.Element {
+function PlacesList({places, handlePlaceHover, handlePlaceLeave}: PlacesListProps): JSX.Element {
 
   return (
     <div className="cities__places-list places__list tabs__content">
-      {places.map((place) => <PlaceCard key={place.id} place={place} classPrefix='cities' checkPlaceOnMap={checkPlaceOnMap}/>)}
+      {places.map((place) => <PlaceCard key={place.id} place={place} classPrefix='cities' handlePlaceHover={handlePlaceHover} handlePlaceLeave={handlePlaceLeave}/>)}
     </div>
   );
 }
