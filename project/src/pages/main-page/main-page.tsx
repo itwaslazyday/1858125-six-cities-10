@@ -2,12 +2,18 @@ import {places, cities} from '../../fish/fish-offers';
 import SiteHeader from '../../components/site-header/site-header';
 import Location from '../../components/location/location';
 import PlacesList from '../../components/places-list/places-list';
+import Map from '../../components/map/map';
+import {useState} from 'react';
+import {Place} from '../../types/types';
 
 type MainPageProps = {
   placeCount: number;
 };
 
 function MainPage({placeCount}: MainPageProps): JSX.Element {
+
+  const [state, setMainPageState] = useState<Place | undefined>(undefined);
+
   return (
     <div className="page page--gray page--main">
       <SiteHeader headerFavoriteCount={3}/>
@@ -16,7 +22,7 @@ function MainPage({placeCount}: MainPageProps): JSX.Element {
         <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
-              {cities.map((city) => <Location key={city} name={city}/>)}
+              {cities.map((city) => <Location key={city.title} name={city.title}/>)}
             </ul>
           </section>
         </div>
@@ -40,10 +46,10 @@ function MainPage({placeCount}: MainPageProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <PlacesList places={places}/>
+              <PlacesList places={places} setMainPageState={setMainPageState}/>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <Map places={places} classPrefix='cities' city={cities[3]} selectedPoint={state}/>
             </div>
           </div>
         </div>

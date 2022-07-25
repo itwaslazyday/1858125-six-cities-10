@@ -1,32 +1,16 @@
-import {useState} from 'react';
 import PlaceCard from '../place-card/place-card';
+import {Place} from '../../types/types';
 
 type PlacesListProps = {
-  places: {
-    isPremium: boolean;
-    bookmarks: boolean;
-    price: number;
-    rating: number;
-    description: string;
-    placeType: string;
-    id: number;
-  }[]
+  places: Place[];
+  setMainPageState: (place: Place | undefined) => void;
 };
 
-function PlacesList(props: PlacesListProps): JSX.Element {
-  const {places} = props;
-  const [state, setState] = useState(0);
-
-  const mouseOverHandler = (id: number) => {
-    if (id !== state) {
-      setState(id);
-    }
-    // console.log(state);
-  };
+function PlacesList({places, setMainPageState}: PlacesListProps): JSX.Element {
 
   return (
     <div className="cities__places-list places__list tabs__content">
-      {places.map((place) => <PlaceCard key={place.id} {...place} mouseOverHandler={mouseOverHandler}/>)}
+      {places.map((place) => <PlaceCard key={place.id} place={place} classPrefix='cities' setMainPageState={setMainPageState} />)}
     </div>
   );
 }
