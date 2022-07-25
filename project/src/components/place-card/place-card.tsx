@@ -4,16 +4,16 @@ import {Place} from '../../types/types';
 type PlaceCardProps = {
   place: Place;
   classPrefix: string;
-  setMainPageState?: (place: Place | undefined) => void;
+  setHoveredCard?: (place: Place | undefined) => void;
 };
 
 
-function PlaceCard({place, classPrefix, setMainPageState}: PlaceCardProps): JSX.Element {
+function PlaceCard({place, classPrefix, setHoveredCard}: PlaceCardProps): JSX.Element {
   const {id, isPremium, isFavorite, price, rating, title, type, previewImage} = place;
   return (
     <article className={`${classPrefix}__card place-card`}
-      onMouseOver={() => {if (setMainPageState) {setMainPageState(place);}}}
-      onMouseLeave={() => {if (setMainPageState) {setMainPageState(undefined);}}}
+      onMouseOver={() => {if (setHoveredCard) {setHoveredCard(place);}}}
+      onMouseLeave={() => {if (setHoveredCard) {setHoveredCard(undefined);}}}
     >
       {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
       <div className={`${classPrefix}__image-wrapper place-card__image-wrapper`}>

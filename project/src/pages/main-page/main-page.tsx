@@ -12,7 +12,7 @@ type MainPageProps = {
 
 function MainPage({placeCount}: MainPageProps): JSX.Element {
 
-  const [state, setMainPageState] = useState<Place | undefined>(undefined);
+  const [hoveredCard, setHoveredCard] = useState<Place | undefined>(undefined);
 
   return (
     <div className="page page--gray page--main">
@@ -46,10 +46,10 @@ function MainPage({placeCount}: MainPageProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <PlacesList places={places} setMainPageState={setMainPageState}/>
+              <PlacesList places={places} setHoveredCard={setHoveredCard}/>
             </section>
             <div className="cities__right-section">
-              <Map places={places} classPrefix='cities' city={cities[3]} selectedPoint={state}/>
+              <Map places={places} classPrefix='cities' city={cities[3]} selectedPoint={hoveredCard}/>
             </div>
           </div>
         </div>
