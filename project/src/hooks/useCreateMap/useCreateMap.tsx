@@ -1,19 +1,23 @@
 import {useEffect, useState, MutableRefObject} from 'react';
 import {Map, TileLayer} from 'leaflet';
+import {cities} from '../../fish/fish-offers';
 import {City} from '../../types/types';
 
-function useCreateMap (mapRef: MutableRefObject<HTMLElement | null>, city: City): Map | null {
+function useCreateMap (mapRef: MutableRefObject<HTMLElement | null>, city: string): Map | null {
   const [map, setMap] = useState<Map | null>(null);
+
+  const currentCity = cities.find((item) => (item.name === city)) as City;
+
+  const {latitude, longitude, zoom } = currentCity.location;
 
   useEffect(() => {
     if (mapRef.current !== null && map === null) {
-
       const instance = new Map(mapRef.current, {
         center: {
-          lat: city.latitude,
-          lng: city.longitude
+          lat: latitude,
+          lng: longitude
         },
-        zoom: city.zoom
+        zoom: zoom
       });
 
       const layer = new TileLayer(
@@ -28,7 +32,7 @@ function useCreateMap (mapRef: MutableRefObject<HTMLElement | null>, city: City)
 
       setMap(instance);
     }
-  }, [mapRef, map, city]);
+  }, [mapRef, map, city, latitude, longitude, zoom]);
 
   return map;
 }

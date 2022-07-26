@@ -7,7 +7,6 @@ import {Place} from '../../types/types';
 import NearbyPlacesList from '../../components/nearby-places-list/nearby-places-list';
 import {nearbyPlaces} from '../../fish/fish-offers';
 import Map from '../../components/map/map';
-import {cities} from '../../fish/fish-offers';
 import {Navigate} from 'react-router-dom';
 
 type PropertyPageProps = {
@@ -118,7 +117,7 @@ function PropertyPage(props: PropertyPageProps): JSX.Element {
               </section>
             </div>
           </div>
-          <Map places={nearbyPlaces} classPrefix='property' city={cities[3]} selectedPoint={undefined}/>
+          <Map places={[...nearbyPlaces, tappedPlace]} classPrefix='property' selectedPoint={tappedPlace} city={tappedPlace.city.name}/>
         </section>
         <div className="container">
           <section className="near-places places">
