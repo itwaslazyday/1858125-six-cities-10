@@ -8,18 +8,14 @@ import PropertyPage from '../../pages/property-page/property-page';
 import PrivateRoute from '../private-route/private-route';
 import {places} from '../../fish/fish-offers';
 
-type AppProps = {
-  placeCount: number;
-};
-
-function App({placeCount}: AppProps): JSX.Element {
+function App(): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/">
           <Route
             index
-            element={<MainPage placeCount={placeCount} />}
+            element={<MainPage />}
           />
           <Route
             path={AppRoute.Favorites}

@@ -47,10 +47,12 @@ type Place = {
 };
 
 type City = {
-  title: string;
-  latitude: number;
-  longitude: number;
-  zoom: number;
+  name: string;
+  location: {
+    latitude: number;
+    longitude: number;
+    zoom: number;
+  }
 };
 
 export type {Place, Review, City};

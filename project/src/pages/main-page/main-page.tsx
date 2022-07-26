@@ -1,18 +1,17 @@
-import {places, cities} from '../../fish/fish-offers';
+import {cities} from '../../fish/fish-offers';
 import SiteHeader from '../../components/site-header/site-header';
-import Location from '../../components/location/location';
+import LocationsList from '../../components/locations-list/locations-list';
 import PlacesList from '../../components/places-list/places-list';
 import Map from '../../components/map/map';
 import {useState} from 'react';
 import {Place} from '../../types/types';
+import {useAppSelector} from '../../hooks/useAppSelector/useAppSelector';
 
-type MainPageProps = {
-  placeCount: number;
-};
+function MainPage(): JSX.Element {
 
-function MainPage({placeCount}: MainPageProps): JSX.Element {
-
-  const [state, setMainPageState] = useState<Place | undefined>(undefined);
+  const [hoveredCard, setHoveredCard] = useState<Place | undefined>(undefined);
+  const city = useAppSelector((state) => state.city);
+  const currentPlaces = useAppSelector((state) => state.offers).filter((offer) => offer.city.name === city);
 
   return (
     <div className="page page--gray page--main">
@@ -21,16 +20,14 @@ function MainPage({placeCount}: MainPageProps): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <ul className="locations__list tabs__list">
-              {cities.map((city) => <Location key={city.title} name={city.title}/>)}
-            </ul>
+            <LocationsList cities={cities}/>
           </section>
         </div>
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{placeCount} places to stay in Amsterdam</b>
+              <b className="places__found">{currentPlaces.length} places to stay in {city}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -46,10 +43,10 @@ function MainPage({placeCount}: MainPageProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <PlacesList places={places} setMainPageState={setMainPageState}/>
+              <PlacesList places={currentPlaces} setHoveredCard={setHoveredCard}/>
             </section>
             <div className="cities__right-section">
-              <Map places={places} classPrefix='cities' city={cities[3]} selectedPoint={state}/>
+              <Map places={currentPlaces} classPrefix='cities' selectedPoint={hoveredCard} city={city}/>
             </div>
           </div>
         </div>

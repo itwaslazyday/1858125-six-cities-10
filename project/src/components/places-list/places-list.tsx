@@ -3,14 +3,14 @@ import {Place} from '../../types/types';
 
 type PlacesListProps = {
   places: Place[];
-  setMainPageState: (place: Place | undefined) => void;
+  setHoveredCard: (place: Place | undefined) => void;
 };
 
-function PlacesList({places, setMainPageState}: PlacesListProps): JSX.Element {
+function PlacesList({places, setHoveredCard}: PlacesListProps): JSX.Element {
 
   return (
     <div className="cities__places-list places__list tabs__content">
-      {places.map((place) => <PlaceCard key={place.id} place={place} classPrefix='cities' setMainPageState={setMainPageState} />)}
+      {places.map((place) => <PlaceCard key={place.id} place={place} classPrefix='cities' setHoveredCard={setHoveredCard} />)}
     </div>
   );
 }
