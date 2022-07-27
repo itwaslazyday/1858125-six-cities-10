@@ -11,7 +11,7 @@ function useCreateMap (mapRef: MutableRefObject<HTMLElement | null>, city: strin
   const currentCity = cities.find((item) => (item.name === city)) as City;
   const {latitude, longitude, zoom } = currentCity.location;
   if (currentCity.name !== currentCityState) {
-    map?.panTo(new L.LatLng(latitude, longitude, zoom), {animate: true, duration: 1.0});
+    map?.setView(new L.LatLng(latitude, longitude), zoom);
     setCurrentCity(city);
   }
 

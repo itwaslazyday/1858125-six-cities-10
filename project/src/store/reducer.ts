@@ -5,6 +5,7 @@ import {places} from '../fish/fish-offers';
 const initialState = {
   city: 'Paris',
   offers: places,
+  sortType: 'Popular'
 };
 
 export const reducer = createReducer(initialState, (builder) => {
