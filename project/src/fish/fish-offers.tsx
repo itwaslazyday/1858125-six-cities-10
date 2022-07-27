@@ -49,11 +49,65 @@ const places: Place[] = [
     },
     description: 'Peaceful studio in the most wanted area in town. Quiet house Near of everything. Completely renovated. Lovely neighbourhood, lot of trendy shops, restaurants and bars in a walking distance.',
     location: {
-      latitude: 52.469553943508,
-      longitude: 4.85309666406198,
+      latitude: 48.843610000000005,
+      longitude: 2.338499,
       zoom: 16
     },
     id: 1543543
+  },
+  {
+    city: {
+      name: 'Paris',
+      location: {
+        latitude: 52.37454,
+        longitude: 4.897976,
+        zoom: 10
+      }
+    },
+    previewImage: 'https://10.react.pages.academy/static/hotel/15.jpg',
+    images: [
+      'https://10.react.pages.academy/static/hotel/8.jpg',
+      'https://10.react.pages.academy/static/hotel/6.jpg',
+      'https://10.react.pages.academy/static/hotel/5.jpg',
+      'https://10.react.pages.academy/static/hotel/14.jpg',
+      'https://10.react.pages.academy/static/hotel/1.jpg',
+      'https://10.react.pages.academy/static/hotel/4.jpg',
+      'https://10.react.pages.academy/static/hotel/7.jpg',
+      'https://10.react.pages.academy/static/hotel/12.jpg',
+      'https://10.react.pages.academy/static/hotel/13.jpg',
+      'https://10.react.pages.academy/static/hotel/10.jpg',
+      'https://10.react.pages.academy/static/hotel/3.jpg',
+      'https://10.react.pages.academy/static/hotel/20.jpg',
+      'https://10.react.pages.academy/static/hotel/15.jpg',
+      'https://10.react.pages.academy/static/hotel/19.jpg'
+    ],
+    title: 'Tiny house',
+    isFavorite: true,
+    isPremium: true,
+    rating: 4.1,
+    type: 'hotel',
+    bedrooms: 2,
+    maxAdults: 5,
+    price: 100,
+    goods: [
+      'Laptop friendly workspace',
+      'Washer',
+      'Breakfast',
+      'Air conditioning'
+    ],
+    host: {
+      id: 2509809764,
+      name: 'Kate',
+      isPro: false,
+      avatarUrl: 'img/avatar-angelina.jpg'
+    },
+    description: 'Peaceful studio in the most wanted area in town. Quiet house Near of everything. Completely renovated. Lovely neighbourhood, lot of trendy shops, restaurants and bars in a walking distance.',
+    location: {
+      latitude: 48.83610000000005,
+      longitude: 2.338499,
+      zoom: 16
+    },
+    id: 118
   },
   {
     city: {
@@ -101,8 +155,8 @@ const places: Place[] = [
     },
     description: 'Relax, rejuvenate and unplug in this ultimate rustic getaway experience in the country. In our beautiful screened Pondhouse, you can gaze at the stars and listen to the sounds of nature from your cozy warm bed.',
     location: {
-      latitude: 52.3909553943508,
-      longitude: 4.85309666406198,
+      latitude: 50.934361,
+      longitude: 6.943974,
       zoom: 16
     },
     id: 220
@@ -159,8 +213,8 @@ const places: Place[] = [
     },
     description: 'Discover daily local life in city center, friendly neighborhood, clandestine casino, karaoke, old-style artisans, art gallery and artist studio downstairs.',
     location: {
-      latitude: 52.5909553943508,
-      longitude: 4.929309666406198,
+      latitude: 50.849557,
+      longitude: 4.374696999999999,
       zoom: 16
     },
     id: 2234
@@ -211,8 +265,8 @@ const places: Place[] = [
     },
     description: 'Relax, rejuvenate and unplug in this ultimate rustic getaway experience in the country. In our beautiful screened Pondhouse, you can gaze at the stars and listen to the sounds of nature from your cozy warm bed.',
     location: {
-      latitude: 52.2809553943508,
-      longitude: 4.939309666406198,
+      latitude: 52.37554,
+      longitude: 4.9019759999999994,
       zoom: 16
     },
     id: 287687
@@ -269,8 +323,8 @@ const places: Place[] = [
     },
     description: 'Discover daily local life in city center, friendly neighborhood, clandestine casino, karaoke, old-style artisans, art gallery and artist studio downstairs.',
     location: {
-      latitude: 52.3809553943508,
-      longitude: 4.959309666406198,
+      latitude: 53.546341000000005,
+      longitude: 10.022654000000001,
       zoom: 16
     },
     id: 78
@@ -327,8 +381,8 @@ const places: Place[] = [
     },
     description: 'Discover daily local life in city center, friendly neighborhood, clandestine casino, karaoke, old-style artisans, art gallery and artist studio downstairs.',
     location: {
-      latitude: 52.3809553943508,
-      longitude: 4.959309666406198,
+      latitude: 51.232402,
+      longitude: 6.800314,
       zoom: 16
     },
     id: 783
@@ -339,13 +393,29 @@ const cities: City[] = [
   {
     name: 'Paris',
     location: {
-      latitude: 52.37454,
-      longitude: 4.897976,
-      zoom: 10
+      latitude: 48.85661,
+      longitude: 2.351499,
+      zoom: 13
     }
   },
   {
     name: 'Cologne',
+    location: {
+      latitude: 50.938361,
+      longitude: 6.959974,
+      zoom: 13
+    }
+  },
+  {
+    name: 'Brussels',
+    location: {
+      latitude: 50.846557,
+      longitude: 4.351697,
+      zoom: 13
+    }
+  },
+  {
+    name: 'Amsterdam',
     location: {
       latitude: 52.37454,
       longitude: 4.897976,
@@ -353,35 +423,19 @@ const cities: City[] = [
     }
   },
   {
-    name: 'Brussels',
-    location: {
-      latitude: 52.3809553943508,
-      longitude: 4.939309666406198,
-      zoom: 10
-    }
-  },
-  {
-    name: 'Amsterdam',
-    location: {
-      latitude: 52.370216,
-      longitude: 4.895168,
-      zoom: 12
-    }
-  },
-  {
     name: 'Hamburg',
     location: {
-      latitude: 52.3809553943508,
-      longitude: 4.939309666406198,
-      zoom: 10
+      latitude: 53.550341,
+      longitude: 10.000654,
+      zoom: 13
     }
   },
   {
     name: 'Dusseldorf',
     location: {
-      latitude: 52.3809553943508,
-      longitude: 4.939309666406198,
-      zoom: 10
+      latitude: 51.225402,
+      longitude: 6.776314,
+      zoom: 13
     }
   }
 ];
