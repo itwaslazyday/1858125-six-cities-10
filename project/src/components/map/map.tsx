@@ -3,6 +3,7 @@ import useCreateMap from '../../hooks/useCreateMap/useCreateMap';
 import {Place} from '../../types/types';
 import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../const';
 import {Icon, Marker} from 'leaflet';
+import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
@@ -29,10 +30,8 @@ function Map ({classPrefix, places, selectedPoint, city}: MapProps): JSX.Element
   const map = useCreateMap(mapRef, city);
 
   useEffect(() => {
+    const layerGroup = L.layerGroup([]);
     if (map) {
-      // map.eachLayer((layer) => {
-      //   layer.remove();
-      // });
       places.forEach((place) => {
         const marker = new Marker({
           lat: place.location.latitude,
@@ -41,10 +40,16 @@ function Map ({classPrefix, places, selectedPoint, city}: MapProps): JSX.Element
         marker
           .setIcon(selectedPoint !== undefined && place.id === selectedPoint.id
             ? currentCustomIcon
-            : defaultCustomIcon)
-          .addTo(map);
+            : defaultCustomIcon);
+        layerGroup
+          .addLayer(marker);
       });
+      layerGroup
+        .addTo(map);
     }
+    return () => {
+      map?.removeLayer(layerGroup);
+    };
   }, [map, places, selectedPoint]);
 
   return (
