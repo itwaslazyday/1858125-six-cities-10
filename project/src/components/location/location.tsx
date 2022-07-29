@@ -13,7 +13,8 @@ function Location({name}: LocationProps): JSX.Element {
 
   return (
     <li className="locations__item" onClick={() => {
-      dispatch(changeCity(name));}}
+      dispatch(changeCity(name));
+    }}
     >
       <Link to={'/'}>
         <p className={`locations__item-link tabs__item ${tappedCity === name ? 'tabs__item--active' : ''}`}>

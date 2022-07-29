@@ -1,17 +1,28 @@
-export enum AppRoute {
+const TIMEOUT_SHOW_ERROR = 4000;
+
+enum AppRoute {
   Favorites = '/favorites',
   Login = '/login',
   Offer = '/offer/:id'
 }
 
-export enum AuthorizationStatus {
+enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN'
 }
 
-export const URL_MARKER_DEFAULT =
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
+enum SortType {
+  Popular = 'Popular',
+  LowToHigh = 'Price: low to high',
+  HighToLow = 'Price: high to low',
+  TopRated = 'Top rated first',
+}
 
-export const URL_MARKER_CURRENT =
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
+enum APIRoute {
+  Offers = '/hotels',
+  Login = '/login',
+  Logout = '/logout',
+}
+
+export {AppRoute, AuthorizationStatus, SortType, APIRoute, TIMEOUT_SHOW_ERROR};
