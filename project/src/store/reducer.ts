@@ -6,7 +6,6 @@ import {Place} from '../types/types';
 type InitialState = {
   city: string;
   offers: Place[];
-  sortType: string;
   authorizationStatus: AuthorizationStatus;
   error: string | null;
   isDataLoaded: boolean;
@@ -15,7 +14,6 @@ type InitialState = {
 const initialState: InitialState = {
   city: 'Paris',
   offers: [],
-  sortType: 'Popular',
   authorizationStatus: AuthorizationStatus.Unknown,
   error: null,
   isDataLoaded: true

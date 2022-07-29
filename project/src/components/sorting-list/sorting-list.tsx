@@ -9,7 +9,6 @@ type SortingListProps = {
 };
 
 function SortingList({changeSortType, currentSortType}: SortingListProps): JSX.Element {
-  const sortState = useAppSelector((state) => (state.sortType));
   const [isSortListVisible, setSortListVisibility] = useState<boolean>(false);
 
   const tappedCity = useAppSelector((state) => (state.city));
@@ -31,7 +30,7 @@ function SortingList({changeSortType, currentSortType}: SortingListProps): JSX.E
         </svg>
       </span>
       <ul className={`places__options places__options--custom ${isSortListVisible ? 'places__options--opened' : ''}`}>
-        {Array.from(Object.values(SortType)).map((item) => <SortingItem key={item} sortState={sortState} sortType={item} changeSortType={changeSortType} setSortListVisibility={setSortListVisibility}/>)}
+        {Array.from(Object.values(SortType)).map((item) => <SortingItem key={item} currentSortType={currentSortType} sortType={item} changeSortType={changeSortType} setSortListVisibility={setSortListVisibility}/>)}
       </ul>
     </div>
   );

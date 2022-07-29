@@ -8,13 +8,13 @@ import {Place} from '../../types/types';
 import {useAppSelector} from '../../hooks/useAppSelector/useAppSelector';
 import SortingList from '../../components/sorting-list/sorting-list';
 import {getSortedPlaces} from '../../utiles/utiles';
+import {SortType} from '../../const';
 
 function MainPage(): JSX.Element {
   const [hoveredCard, setHoveredCard] = useState<Place | undefined>(undefined);
   const city = useAppSelector((state) => state.city);
-  const sortState = useAppSelector((state) => (state.sortType));
   const currentPlaces = useAppSelector((state) => state.offers).filter((offer) => offer.city.name === city);
-  const [currentSortType, changeSortType] = useState<string>(sortState);
+  const [currentSortType, changeSortType] = useState<string>(SortType.Popular);
   const sortedPlaces = getSortedPlaces(currentPlaces, currentSortType);
 
   return (
