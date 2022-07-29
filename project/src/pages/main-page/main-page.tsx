@@ -32,7 +32,7 @@ function MainPage(): JSX.Element {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{sortedPlaces.length} places to stay in {city}</b>
-              <SortingList changeSortType={changeSortType}/>
+              <SortingList changeSortType={changeSortType} currentSortType={currentSortType}/>
               <PlacesList places={sortedPlaces} setHoveredCard={setHoveredCard}/>
             </section>
             <div className="cities__right-section">

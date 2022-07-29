@@ -5,9 +5,10 @@ import {SortType} from '../../const';
 
 type SortingListProps = {
   changeSortType: (sortType: string) => void;
+  currentSortType: string;
 };
 
-function SortingList({changeSortType}: SortingListProps): JSX.Element {
+function SortingList({changeSortType, currentSortType}: SortingListProps): JSX.Element {
   const sortState = useAppSelector((state) => (state.sortType));
   const [isSortListVisible, setSortListVisibility] = useState<boolean>(false);
 
@@ -17,13 +18,14 @@ function SortingList({changeSortType}: SortingListProps): JSX.Element {
   if (currentCity !== tappedCity) {
     setCurrentCity(tappedCity);
     setSortListVisibility(false);
+    changeSortType(SortType.Popular);
   }
 
   return (
     <div className="places__sorting">
       <span className="places__sorting-caption">Sort by </span>
       <span className="places__sorting-type" tabIndex={0} onClick={() => setSortListVisibility(!isSortListVisible)}>
-        {sortState}
+        {currentSortType}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
