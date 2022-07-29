@@ -1,0 +1,14 @@
+.loading {
+  position: fixed;
+  top: 100px;
+  left: 60px;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: 400;
+  font-size: 18px;
+  font-style: normal;
+  text-shadow: 1px 0 0, 0.5px 0 0, -1px 0 0;
+  color: #fff;
+  background-color: #4481c3;
+  transform: skew(-15deg);
+}

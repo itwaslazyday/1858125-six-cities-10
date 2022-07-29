@@ -1,3 +1,5 @@
+const TIMEOUT_SHOW_ERROR = 4000;
+
 enum AppRoute {
   Favorites = '/favorites',
   Login = '/login',
@@ -17,4 +19,10 @@ enum SortType {
   TopRated = 'Top rated first',
 }
 
-export {AppRoute, AuthorizationStatus, SortType};
+enum APIRoute {
+  Offers = '/hotels',
+  Login = '/login',
+  Logout = '/logout',
+}
+
+export {AppRoute, AuthorizationStatus, SortType, APIRoute, TIMEOUT_SHOW_ERROR};
