@@ -1,13 +1,13 @@
 type SortingItemProps = {
-  sortState: string;
+  currentSortType: string;
   sortType: string;
   changeSortType: (sortType: string) => void;
   setSortListVisibility: (state: boolean) => void;
 };
 
-function SortingItem({sortState, sortType, changeSortType, setSortListVisibility}: SortingItemProps): JSX.Element {
+function SortingItem({currentSortType, sortType, changeSortType, setSortListVisibility}: SortingItemProps): JSX.Element {
   return (
-    <li className={`places__option ${sortState === sortType ? 'places__option--active' : ''}`}
+    <li className={`places__option ${currentSortType === sortType ? 'places__option--active' : ''}`}
       tabIndex={0} onClick={() => {
         changeSortType(sortType);
         setSortListVisibility(false);}}
