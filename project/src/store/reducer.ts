@@ -1,7 +1,8 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {changeCity, getOffers, checkAuthorization, setError, setDataLoadedStatus} from './action';
+import {changeCity, getOffers, checkAuthorization, setError, setDataLoadedStatus, setAuthInfo} from './action';
 import {AuthorizationStatus} from '../const';
 import {Place} from '../types/types';
+import {AxiosResponse} from 'axios';
 
 type InitialState = {
   city: string;
@@ -9,6 +10,7 @@ type InitialState = {
   authorizationStatus: AuthorizationStatus;
   error: string | null;
   isDataLoaded: boolean;
+  userInfo: AxiosResponse['data'] | null
 };
 
 const initialState: InitialState = {
@@ -16,7 +18,8 @@ const initialState: InitialState = {
   offers: [],
   authorizationStatus: AuthorizationStatus.Unknown,
   error: null,
-  isDataLoaded: true
+  isDataLoaded: true,
+  userInfo: null
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -35,5 +38,8 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setDataLoadedStatus, (state, action) => {
       state.isDataLoaded = action.payload;
+    })
+    .addCase(setAuthInfo, (state, action) => {
+      state.userInfo = action.payload;
     });
 });
