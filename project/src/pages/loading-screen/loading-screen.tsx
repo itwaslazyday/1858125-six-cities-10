@@ -2,7 +2,9 @@ import './loading-screen.css';
 
 function LoadingScreen(): JSX.Element {
   return (
-    <p className='loading'>Loading places to stay...</p>
+    <section className='container'>
+      <p className='loading'>Loading places to stay...</p>
+    </section>
   );
 }
 

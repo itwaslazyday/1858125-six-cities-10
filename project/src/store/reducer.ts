@@ -1,5 +1,5 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {changeCity, getOffers, checkAuthorization, setError, setDataLoadedStatus, setAuthInfo} from './action';
+import {changeCity, setOffers, setAuthorization, setError, setDataLoadedStatus, setAuthInfo} from './action';
 import {AuthorizationStatus} from '../const';
 import {Place} from '../types/types';
 import {AxiosResponse} from 'axios';
@@ -18,7 +18,7 @@ const initialState: InitialState = {
   offers: [],
   authorizationStatus: AuthorizationStatus.Unknown,
   error: null,
-  isDataLoaded: true,
+  isDataLoaded: false,
   userInfo: null
 };
 
@@ -27,10 +27,10 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(changeCity, (state, action) => {
       state.city = action.payload;
     })
-    .addCase(checkAuthorization, (state, action) => {
+    .addCase(setAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
     })
-    .addCase(getOffers, (state, action) => {
+    .addCase(setOffers, (state, action) => {
       state.offers = action.payload;
     })
     .addCase(setError, (state, action) => {

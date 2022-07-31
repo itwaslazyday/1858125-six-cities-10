@@ -2,7 +2,7 @@ import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from '../types/state.js';
 import {Place} from '../types/types.js';
-import {getOffers, checkAuthorization, setError, setDataLoadedStatus, setAuthInfo} from './action';
+import {setOffers, setAuthorization, setError, setDataLoadedStatus, setAuthInfo} from './action';
 import {saveToken, dropToken} from '../services/token';
 import {APIRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR} from '../const';
 import {AuthData} from '../types/auth-data';
@@ -27,8 +27,8 @@ export const fetchOffersAction = createAsyncThunk<void, undefined, {
   'data/offers',
   async (_arg, {dispatch, extra: api}) => {
     const {data} = await api.get<Place[]>(APIRoute.Offers);
-    dispatch(getOffers(data));
-    dispatch(setDataLoadedStatus(false));
+    dispatch(setOffers(data));
+    dispatch(setDataLoadedStatus(true));
   },
 );
 
@@ -41,10 +41,10 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
   async (_arg, {dispatch, extra: api}) => {
     try {
       const {data} = await api.get(APIRoute.Login);
-      dispatch(checkAuthorization(AuthorizationStatus.Auth));
+      dispatch(setAuthorization(AuthorizationStatus.Auth));
       dispatch(setAuthInfo(data));
     } catch {
-      dispatch(checkAuthorization(AuthorizationStatus.NoAuth));
+      dispatch(setAuthorization(AuthorizationStatus.NoAuth));
       dispatch(setAuthInfo(null));
     }
   },
@@ -59,7 +59,7 @@ export const loginAction = createAsyncThunk<void, AuthData, {
   async ({login: email, password}, {dispatch, extra: api}) => {
     const {data} = await api.post<UserData>(APIRoute.Login, {email, password});
     saveToken(data.token);
-    dispatch(checkAuthorization(AuthorizationStatus.Auth));
+    dispatch(setAuthorization(AuthorizationStatus.Auth));
     dispatch(setAuthInfo(data));
   },
 );
@@ -73,7 +73,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   async (_arg, {dispatch, extra: api}) => {
     await api.delete(APIRoute.Logout);
     dropToken();
-    dispatch(checkAuthorization(AuthorizationStatus.NoAuth));
+    dispatch(setAuthorization(AuthorizationStatus.NoAuth));
     dispatch(setAuthInfo(null));
   },
 );

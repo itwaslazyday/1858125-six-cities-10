@@ -12,7 +12,7 @@ import LoadingScreen from '../../pages/loading-screen/loading-screen';
 function App(): JSX.Element {
   const {authorizationStatus, isDataLoaded, offers} = useAppSelector((state) => state);
 
-  if (isDataLoaded) {
+  if (!isDataLoaded) {
     return (
       <LoadingScreen />
     );

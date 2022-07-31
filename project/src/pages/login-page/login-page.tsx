@@ -1,17 +1,19 @@
 import Logo from '../../components/logo/logo';
-import {useRef, FormEvent} from 'react';
+import {FormEvent} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useAppDispatch} from '../../hooks/useAppDispatch/useAppDispatch';
 import {loginAction} from '../../store/api-actions';
 import {AuthData} from '../../types/auth-data';
 import {AppRoute} from '../../const';
+import useInput from '../../hooks/useInput/useInput';
 
 function LoginPage(): JSX.Element {
-  const loginRef = useRef<HTMLInputElement | null>(null);
-  const passwordRef = useRef<HTMLInputElement | null>(null);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  const email = useInput('');
+  const password = useInput('');
 
   const onSubmit = (authData: AuthData) => {
     dispatch(loginAction(authData));
@@ -20,14 +22,17 @@ function LoginPage(): JSX.Element {
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    if (loginRef.current !== null && passwordRef.current !== null) {
-      onSubmit({
-        login: loginRef.current.value,
-        password: passwordRef.current.value,
-      });
+    if (email.value && password.value) {
+      if (!(email.isEmailError && password.isPasswordError)) {
+        onSubmit({
+          login: email.value,
+          password: password.value,
+        });
+        navigate(AppRoute.Main);
+      }
     }
-    navigate(AppRoute.Main);
   };
+
 
   return (
     <div className="page page--gray page--login">
@@ -46,12 +51,14 @@ function LoginPage(): JSX.Element {
             <form className="login__form form" action="#" method="post" onSubmit={handleSubmit}>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
-                <input ref={loginRef} className="login__input form__input" type="email" name="email" placeholder="Email" required/>
+                <input onChange={email.onChange} onBlur={email.onBlur} value={email.value} className="login__input form__input" type="email" name="email" placeholder="Email" required/>
               </div>
+              {(email.isDirty && email.isEmailError) && <p style={{margin: '0, 0, 15px, 0', color: 'red'}}>{email.emailErrorText}</p>}
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">Password</label>
-                <input ref={passwordRef} className="login__input form__input" type="password" name="password" placeholder="Password" required/>
+                <input onChange={password.onChange} onBlur={password.onBlur} value={password.value} className="login__input form__input" type="password" name="password" placeholder="Password" required/>
               </div>
+              {(password.isDirty && password.isPasswordError) && <p style={{margin: '0, 0, 15px, 0', color: 'red'}}>{password.passwordErrorText}</p>}
               <button className="login__submit form__submit button" type="submit">Sign in</button>
             </form>
           </section>
