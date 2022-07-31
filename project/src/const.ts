@@ -3,7 +3,8 @@ const TIMEOUT_SHOW_ERROR = 4000;
 enum AppRoute {
   Favorites = '/favorites',
   Login = '/login',
-  Offer = '/offer/:id'
+  Offer = '/offer/:id',
+  Main = '/'
 }
 
 enum AuthorizationStatus {
