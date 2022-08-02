@@ -40,7 +40,7 @@ function App(): JSX.Element {
           />
           <Route
             path={AppRoute.Offer}
-            element={<PropertyPage places={offers}/>}
+            element={<PropertyPage/>}
           />
           <Route
             path="*"

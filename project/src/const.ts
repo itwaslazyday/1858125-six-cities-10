@@ -22,6 +22,7 @@ enum SortType {
 
 enum APIRoute {
   Offers = '/hotels',
+  Comments = '/comments',
   Login = '/login',
   Logout = '/logout',
 }

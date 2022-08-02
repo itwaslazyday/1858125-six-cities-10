@@ -55,4 +55,10 @@ type City = {
   }
 };
 
-export type {Place, Review, City};
+type NewReview = {
+  rating: number;
+  comment: string;
+  id: number;
+};
+
+export type {Place, Review, City, NewReview};

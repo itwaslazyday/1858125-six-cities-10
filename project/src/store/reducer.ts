@@ -1,7 +1,7 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {changeCity, setOffers, setAuthorization, setError, setDataLoadedStatus, setAuthInfo} from './action';
+import {changeCity, setOffers, setAuthorization, setError, setDataLoadedStatus, setAuthInfo, setOffer, setComments, setNearbyPlaces} from './action';
 import {AuthorizationStatus} from '../const';
-import {Place} from '../types/types';
+import {Place, Review} from '../types/types';
 import {AxiosResponse} from 'axios';
 
 type InitialState = {
@@ -10,7 +10,10 @@ type InitialState = {
   authorizationStatus: AuthorizationStatus;
   error: string | null;
   isDataLoaded: boolean;
-  userInfo: AxiosResponse['data'] | null
+  userInfo: AxiosResponse['data'] | null;
+  offer: Place | null;
+  comments: Review[] | null;
+  nearby: Place[] | null;
 };
 
 const initialState: InitialState = {
@@ -19,7 +22,10 @@ const initialState: InitialState = {
   authorizationStatus: AuthorizationStatus.Unknown,
   error: null,
   isDataLoaded: false,
-  userInfo: null
+  userInfo: null,
+  offer: null,
+  comments: [],
+  nearby: []
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -32,6 +38,15 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setOffers, (state, action) => {
       state.offers = action.payload;
+    })
+    .addCase(setOffer, (state, action) => {
+      state.offer = action.payload;
+    })
+    .addCase(setComments, (state, action) => {
+      state.comments = action.payload;
+    })
+    .addCase(setNearbyPlaces, (state, action) => {
+      state.nearby = action.payload;
     })
     .addCase(setError, (state, action) => {
       state.error = action.payload;

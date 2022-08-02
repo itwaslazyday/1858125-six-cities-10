@@ -2,7 +2,7 @@ import PlaceCard from '../place-card/place-card';
 import {Place} from '../../types/types';
 
 type NearbyPlacesListProps = {
-  places: Place[];
+  places: Place[] | null;
 };
 
 function NearbyPlacesList(props: NearbyPlacesListProps): JSX.Element {
@@ -10,7 +10,7 @@ function NearbyPlacesList(props: NearbyPlacesListProps): JSX.Element {
 
   return (
     <div className="near-places__list places__list">
-      {places.map((place) => <PlaceCard key={place.id} place={place} classPrefix='near-places'/>)}
+      {places?.map((place) => <PlaceCard key={place.id} place={place} classPrefix='near-places'/>)}
     </div>
   );
 }

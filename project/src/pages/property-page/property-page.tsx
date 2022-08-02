@@ -1,28 +1,42 @@
 import SiteHeader from '../../components/site-header/site-header';
 import {useParams} from 'react-router-dom';
-import {reviews} from '../../fish/fish-offers';
 import FormReview from '../../components/form-review/form-review';
 import ReviewsList from '../../components/reviews-list/reviews-list';
-import {Place} from '../../types/types';
 import NearbyPlacesList from '../../components/nearby-places-list/nearby-places-list';
-import {nearbyPlaces} from '../../fish/fish-offers';
 import Map from '../../components/map/map';
 import {Navigate} from 'react-router-dom';
 
-type PropertyPageProps = {
-  places: Place[]
-};
+import {useAppSelector} from '../../hooks/useAppSelector/useAppSelector';
+import {useAppDispatch} from '../../hooks/useAppDispatch/useAppDispatch';
+import {fetchOfferAction, fetchCommentsAction, fetchNearbyPlacesAction} from '../../store/api-actions';
+import LoadingScreen from '../../pages/loading-screen/loading-screen';
+import {AuthorizationStatus} from '../../const';
 
-function PropertyPage(props: PropertyPageProps): JSX.Element {
-  const {places} = props;
-  const params = useParams();
-  const tappedPlace: Place | undefined = places.find((place) => String(place.id) === params.id);
+// type PropertyPageProps = {
+//   places: Place[]
+// };
 
-  if (!tappedPlace) {
+function PropertyPage(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const currentId = Number(useParams().id);
+  const {offer, error, comments, authorizationStatus, nearby} = useAppSelector((state) => state);
+
+  if (offer?.id !== currentId && !error) {
+    dispatch(fetchOfferAction(currentId));
+    dispatch(fetchCommentsAction(currentId));
+    dispatch(fetchNearbyPlacesAction(currentId));
+    return (
+      <LoadingScreen />
+    );
+  } else if (error) {
     return (<Navigate to={'*'} />);
   }
 
-  const {isPremium, price, rating, title, maxAdults, bedrooms, type, host, description} = tappedPlace;
+  if (!offer) {
+    throw new Error();
+  }
+
+  const {isPremium, price, rating, title, maxAdults, bedrooms, type, host, description} = offer;
   return (
     <div className="page">
       <SiteHeader headerFavoriteCount={3}/>
@@ -87,7 +101,7 @@ function PropertyPage(props: PropertyPageProps): JSX.Element {
               <div className="property__inside">
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
-                  {tappedPlace.goods.map((good) =>
+                  {offer?.goods.map((good) =>
                     (<li className="property__inside-item" key={good}>{good}</li>))}
                 </ul>
               </div>
@@ -111,18 +125,18 @@ function PropertyPage(props: PropertyPageProps): JSX.Element {
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
-                <ReviewsList reviews={reviews}/>
-                <FormReview />
+                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments?.length}</span></h2>
+                <ReviewsList reviews={comments}/>
+                {authorizationStatus === AuthorizationStatus.Auth ? <FormReview currentId={currentId}/> : ''}
               </section>
             </div>
           </div>
-          <Map places={[...nearbyPlaces, tappedPlace]} classPrefix='property' selectedPoint={tappedPlace} city={tappedPlace.city.name}/>
+          <Map places={nearby?.concat(offer)} classPrefix='property' selectedPoint={offer} city={offer.city.name}/>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <NearbyPlacesList places={nearbyPlaces}/>
+            <NearbyPlacesList places={nearby}/>
           </section>
         </div>
       </main>
