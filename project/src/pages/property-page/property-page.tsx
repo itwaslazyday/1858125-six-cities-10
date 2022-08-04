@@ -1,42 +1,44 @@
 import SiteHeader from '../../components/site-header/site-header';
 import {useParams} from 'react-router-dom';
+import {useEffect} from 'react';
 import FormReview from '../../components/form-review/form-review';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import NearbyPlacesList from '../../components/nearby-places-list/nearby-places-list';
 import Map from '../../components/map/map';
 import {Navigate} from 'react-router-dom';
-
 import {useAppSelector} from '../../hooks/useAppSelector/useAppSelector';
 import {useAppDispatch} from '../../hooks/useAppDispatch/useAppDispatch';
 import {fetchOfferAction, fetchCommentsAction, fetchNearbyPlacesAction} from '../../store/api-actions';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
-import {AuthorizationStatus} from '../../const';
-
-// type PropertyPageProps = {
-//   places: Place[]
-// };
+import {AuthorizationStatus, AppRoute} from '../../const';
+import {setOfferDataError} from '../../store/action';
 
 function PropertyPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const currentId = Number(useParams().id);
-  const {offer, error, comments, authorizationStatus, nearby} = useAppSelector((state) => state);
 
-  if (offer?.id !== currentId && !error) {
+  const room = useAppSelector((state) => state.offer.room);
+  const offerDataError = useAppSelector((state) => state.errors.offerDataError);
+  const authorizationStatus = useAppSelector((state) => state.user.authorizationStatus);
+  const nearby = useAppSelector((state) => state.offer.nearby);
+  const comments = useAppSelector((state) => state.offer.comments);
+
+  useEffect(() => {
     dispatch(fetchOfferAction(currentId));
     dispatch(fetchCommentsAction(currentId));
     dispatch(fetchNearbyPlacesAction(currentId));
-    return (
-      <LoadingScreen />
-    );
-  } else if (error) {
-    return (<Navigate to={'*'} />);
+  }, [currentId, dispatch]);
+
+  if (!offerDataError) {
+    if (!room || (room?.id !== currentId)) {
+      return (<LoadingScreen />);
+    }
+  } else {
+    dispatch(setOfferDataError(false));
+    return (<Navigate to={AppRoute.NotFound} />);
   }
 
-  if (!offer) {
-    throw new Error();
-  }
-
-  const {isPremium, price, rating, title, maxAdults, bedrooms, type, host, description} = offer;
+  const {isPremium, price, rating, title, maxAdults, bedrooms, type, host, description} = room;
   return (
     <div className="page">
       <SiteHeader headerFavoriteCount={3}/>
@@ -101,7 +103,7 @@ function PropertyPage(): JSX.Element {
               <div className="property__inside">
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
-                  {offer?.goods.map((good) =>
+                  {room?.goods.map((good) =>
                     (<li className="property__inside-item" key={good}>{good}</li>))}
                 </ul>
               </div>
@@ -131,7 +133,7 @@ function PropertyPage(): JSX.Element {
               </section>
             </div>
           </div>
-          <Map places={nearby?.concat(offer)} classPrefix='property' selectedPoint={offer} city={offer.city.name}/>
+          <Map places={nearby?.concat(room)} classPrefix='property' selectedPoint={room} city={room.city.name}/>
         </section>
         <div className="container">
           <section className="near-places places">

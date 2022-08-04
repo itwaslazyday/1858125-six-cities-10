@@ -11,7 +11,7 @@ type SortingListProps = {
 function SortingList({changeSortType, currentSortType}: SortingListProps): JSX.Element {
   const [isSortListVisible, setSortListVisibility] = useState<boolean>(false);
 
-  const tappedCity = useAppSelector((state) => (state.city));
+  const tappedCity = useAppSelector((state) => (state.offers.city));
   const [currentCity, setCurrentCity] = useState<string>(tappedCity);
 
   if (currentCity !== tappedCity) {

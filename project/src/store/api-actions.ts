@@ -2,7 +2,8 @@ import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from '../types/state.js';
 import {Place, Review, NewReview} from '../types/types.js';
-import {setOffers, setAuthorization, setError, setDataLoadedStatus, setAuthInfo, setOffer, setComments, setNearbyPlaces} from './action';
+import {setOffers, setAuthorization, setAuthError, setOfferCommentsError, setOfferDataError, setOfferNearbyError,
+  setDataLoadedStatus, setAuthInfo, setOffer, setComments, setNearbyPlaces} from './action';
 import {saveToken, dropToken} from '../services/token';
 import {APIRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR} from '../const';
 import {AuthData} from '../types/auth-data';
@@ -13,7 +14,7 @@ export const clearErrorAction = createAsyncThunk(
   'app/clearError',
   () => {
     setTimeout(
-      () => store.dispatch(setError(null)),
+      () => store.dispatch(setAuthError(null)),
       TIMEOUT_SHOW_ERROR,
     );
   },
@@ -43,7 +44,7 @@ export const fetchOfferAction = createAsyncThunk<void, number, {
       const {data} = await api.get<Place>(`${APIRoute.Offers}/${id}`);
       dispatch(setOffer(data));
     } catch {
-      dispatch(setError('Offer data error'));
+      dispatch(setOfferDataError(true));
     }
   },
 );
@@ -59,7 +60,7 @@ export const fetchCommentsAction = createAsyncThunk<void, number, {
       const {data} = await api.get<Review[]>(`${APIRoute.Comments}/${id}`);
       dispatch(setComments(data));
     } catch {
-      dispatch(setError('Comments data error'));
+      dispatch(setOfferCommentsError(true));
     }
   },
 );
@@ -75,7 +76,7 @@ export const fetchNearbyPlacesAction = createAsyncThunk<void, number, {
       const {data} = await api.get<Place[]>(`${APIRoute.Offers}/${id}/nearby`);
       dispatch(setNearbyPlaces(data));
     } catch {
-      dispatch(setError('Nearby data error'));
+      dispatch(setOfferNearbyError(true));
     }
   },
 );
@@ -85,7 +86,7 @@ export const fetchNewCommentAction = createAsyncThunk<void, NewReview, {
   state: State,
   extra: AxiosInstance
 }>(
-  'data/comments/new',
+  'data/addComment',
   async ({id, rating, comment}, {dispatch, extra: api}) => {
     const {data} = await api.post<Review[]>(`${APIRoute.Comments}/${id}`, {rating, comment});
     dispatch(setComments(data));

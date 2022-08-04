@@ -12,8 +12,8 @@ import {SortType} from '../../const';
 
 function MainPage(): JSX.Element {
   const [hoveredCard, setHoveredCard] = useState<Place | undefined>(undefined);
-  const city = useAppSelector((state) => state.city);
-  const currentPlaces = useAppSelector((state) => state.offers).filter((offer) => offer.city.name === city);
+  const city = useAppSelector((state) => state.offers.city);
+  const currentPlaces = useAppSelector((state) => state.offers.offers).filter((offer) => offer.city.name === city);
   const [currentSortType, changeSortType] = useState<string>(SortType.Popular);
   const sortedPlaces = getSortedPlaces(currentPlaces, currentSortType);
 

@@ -9,7 +9,7 @@ type LocationProps = {
 
 function Location({name}: LocationProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const tappedCity = useAppSelector((state) => (state.city));
+  const tappedCity = useAppSelector((state) => (state.offers.city));
 
   return (
     <li className="locations__item" onClick={() => {

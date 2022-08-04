@@ -2,10 +2,10 @@ import {useAppSelector} from '../../hooks/useAppSelector/useAppSelector';
 import './error-message.css';
 
 function ErrorMessage(): JSX.Element | null {
-  const {error} = useAppSelector((state) => state);
+  const {errors} = useAppSelector((state) => state);
 
-  return (error)
-    ? <div className='error-message'>{error}</div>
+  return (errors.authError)
+    ? <div className='error-message'>{errors.authError}</div>
     : null;
 
 }

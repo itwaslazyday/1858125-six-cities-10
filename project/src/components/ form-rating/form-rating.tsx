@@ -1,15 +1,28 @@
 import React from 'react';
+import {ChangeEvent} from 'react';
+
 type FormRatingProps = {
   index: number;
-  handleRatingChange: (index: number) => void;
-};
+  checkedInput: number;
+  handleRatingChange: ({target}: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+}
 
-function FormRating(props: FormRatingProps): JSX.Element {
-  const {index, handleRatingChange} = props;
+const ratingTitle: string[] = [
+  'Run, Forest, run!',
+  'Bad. Really bad :(',
+  'Might be better!',
+  'Good place!',
+  'Awesome to stay!',
+];
+
+const getTitle = (index: number) => ratingTitle.find((_item, idx) => index === (idx + 1)) as string;
+
+function FormRating({checkedInput, handleRatingChange, index}: FormRatingProps): JSX.Element {
+
   return (
     <React.Fragment>
-      <input className="form__rating-input visually-hidden" name="rating" value={index} id={`${index}-stars`} type="radio" onChange={() => handleRatingChange(index)} />
-      <label htmlFor={`${index}-stars`} className="reviews__rating-label form__rating-label" title="perfect">
+      <input className="form__rating-input visually-hidden" name="rating" value={index} id={`${index}-stars`} type="radio" onChange={(evt) => {handleRatingChange(evt);}} checked={index === checkedInput}/>
+      <label htmlFor={`${index}-stars`} className="reviews__rating-label form__rating-label" title={getTitle(index)}>
         <svg className="form__star-image" width="37" height="33">
           <use xlinkHref="#icon-star"></use>
         </svg>

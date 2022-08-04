@@ -3,7 +3,7 @@ import FormRating from '../ form-rating/form-rating';
 import {fetchNewCommentAction} from '../../store/api-actions';
 import {NewReview} from '../../types/types';
 import {useAppDispatch} from '../../hooks/useAppDispatch/useAppDispatch';
-import {FormEvent} from 'react';
+import {FormEvent, ChangeEvent} from 'react';
 
 type FormReviewProps = {
   currentId: number;
@@ -16,24 +16,26 @@ function FormReview({currentId}: FormReviewProps): JSX.Element {
     {
       rating: 0,
       comment: '',
-      id: currentId,
+      id: currentId
     }
   );
 
-
-  const handleRatingChange = (index: number): void => {
-    setFormState({...formState, rating: index});
+  const handleRatingChange = (evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
+    evt.preventDefault();
+    const {name, value} = evt.target;
+    setFormState((prev) => ({...prev, [name]: value}));
   };
 
   const handleCommentChange = (evt: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>): void => {
+    evt.preventDefault();
     const {value} = evt.target;
-    setFormState({...formState, comment: value});
+    setFormState((prev) => ({...prev, comment: value}));
   };
 
   const getRatingFields = () => {
     const ratingFields = [];
     for (let i = 5; i > 0; i--) {
-      ratingFields.push(<FormRating key={i} index={i} handleRatingChange={handleRatingChange}/>);
+      ratingFields.push(<FormRating key={i} index={i} handleRatingChange={handleRatingChange} checkedInput={formState.rating}/>);
     }
     return ratingFields;
   };

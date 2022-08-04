@@ -5,8 +5,11 @@ type ReviewsListProps = {
   reviews: Review[] | null
 };
 
-function ReviewsList(props: ReviewsListProps): JSX.Element {
-  const {reviews} = props;
+const sortRecentToOld = (commentA: Review, commentB: Review) => new Date(commentB.date).getTime() - new Date(commentA.date).getTime();
+
+function ReviewsList({reviews}: ReviewsListProps): JSX.Element {
+  if (reviews) {reviews = [...reviews].sort(sortRecentToOld);}
+
   return (
     <ul className="reviews__list">
       {reviews?.map((review) => <ReviewItem key={review.id} {...review} />)}
