@@ -57,7 +57,7 @@ type City = {
 
 type NewReview = {
   rating: number;
-  comment: string;
+  review: string;
   id: number;
 };
 

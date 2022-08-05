@@ -38,7 +38,7 @@ function PropertyPage(): JSX.Element {
     return (<Navigate to={AppRoute.NotFound} />);
   }
 
-  const {isPremium, price, rating, title, maxAdults, bedrooms, type, host, description} = room;
+  const {isPremium, price, rating, title, maxAdults, bedrooms, type, host, description, images} = room;
   return (
     <div className="page">
       <SiteHeader headerFavoriteCount={3}/>
@@ -46,24 +46,10 @@ function PropertyPage(): JSX.Element {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/room.jpg" alt="Studio view" />
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-01.jpg" alt="Studio view" />
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-02.jpg" alt="Studio view" />
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-03.jpg" alt="Studio view" />
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/studio-01.jpg" alt="Studio view" />
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-01.jpg" alt="Studio view" />
-              </div>
+              {images.slice(0, 6).map((image) => (
+                <div key={image} className="property__image-wrapper">
+                  <img className="property__image" src={image} alt="Studio view" />
+                </div>))}
             </div>
           </div>
           <div className="property__container container">

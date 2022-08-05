@@ -3,7 +3,7 @@ import FormRating from '../ form-rating/form-rating';
 import {fetchNewCommentAction} from '../../store/api-actions';
 import {NewReview} from '../../types/types';
 import {useAppDispatch} from '../../hooks/useAppDispatch/useAppDispatch';
-import {FormEvent, ChangeEvent} from 'react';
+import {FormEvent} from 'react';
 
 type FormReviewProps = {
   currentId: number;
@@ -15,27 +15,20 @@ function FormReview({currentId}: FormReviewProps): JSX.Element {
   const [formState, setFormState] = useState<NewReview>(
     {
       rating: 0,
-      comment: '',
+      review: '',
       id: currentId
     }
   );
 
-  const handleRatingChange = (evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-    evt.preventDefault();
+  const handleFieldChange = (evt: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>): void => {
     const {name, value} = evt.target;
-    setFormState((prev) => ({...prev, [name]: value}));
-  };
-
-  const handleCommentChange = (evt: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>): void => {
-    evt.preventDefault();
-    const {value} = evt.target;
-    setFormState((prev) => ({...prev, comment: value}));
+    setFormState({...formState, [name]: value});
   };
 
   const getRatingFields = () => {
     const ratingFields = [];
     for (let i = 5; i > 0; i--) {
-      ratingFields.push(<FormRating key={i} index={i} handleRatingChange={handleRatingChange} checkedInput={formState.rating}/>);
+      ratingFields.push(<FormRating key={i} index={i} handleFieldChange={handleFieldChange} isChecked={Number(formState.rating) === i}/>);
     }
     return ratingFields;
   };
@@ -47,7 +40,7 @@ function FormReview({currentId}: FormReviewProps): JSX.Element {
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     onSubmit(formState);
-    setFormState({...formState, comment: '', rating: 0});
+    setFormState({...formState, review: '', rating: 0});
   };
 
   return (
@@ -56,12 +49,12 @@ function FormReview({currentId}: FormReviewProps): JSX.Element {
       <div className="reviews__rating-form form__rating">
         {getRatingFields()}
       </div>
-      <textarea className="reviews__textarea form__textarea" value={formState.comment} onChange={handleCommentChange} id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved"></textarea>
+      <textarea className="reviews__textarea form__textarea" value={formState.review} onChange={handleFieldChange} id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved"></textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
       To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled={!(formState.rating > 0 && formState.comment)}>Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={!(formState.rating > 0 && formState.review)}>Submit</button>
       </div>
     </form>
   );
