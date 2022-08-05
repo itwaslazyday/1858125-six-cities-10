@@ -2,44 +2,35 @@ import {useState, useEffect} from 'react';
 
 type Validations = {
   isEmpty: boolean;
-  email: RegExp;
-  password: RegExp;
+  reCheck: RegExp;
 };
 
-const validations: Validations = {
-  isEmpty: true,
-  email: /[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}/igm,
-  password: /^(?=.*[A-Za-z])(?=.*[0-9]).{3,}$/
-};
-
-function useValidateForm (value: string) {
+function useValidateForm (value: string, validations: Validations, name: string) {
   const [isEmpty, setEmpty] = useState(true);
-  const [isEmailError, setEmailError] = useState(false);
-  const [isPasswordError, setPasswordError] = useState(false);
-  const [emailErrorText, setEmailErrorText] = useState('');
-  const [passwordErrorText, setPasswordErrorText] = useState('');
+  const [isError, setInputError] = useState(false);
+  const [errorText, setErrorText] = useState('');
 
   useEffect (() => {
     for (const validation in validations) {
       switch (validation) {
         case 'isEmpty':
-          value ? setEmpty(false) : setEmpty(true);
+          if (value) {setEmpty(false);} else {setEmpty(true); setErrorText('Поле не может быть пустым');}
           break;
 
-        case 'email':
-          if (validations[validation].test(value)) {
-            setEmailError(false);} else {setEmailError(true); setEmailErrorText('Введен некорректный e-mail');}
-          break;
-
-        case 'password':
-          if (validations[validation].test(value)) {
-            setPasswordError(false);} else {setPasswordError(true); setPasswordErrorText('Пароль должен содержать не менее одной буквы и цифры, и не быть короче трех символов');}
+        case 'reCheck':
+          if (value) {
+            if (validations[validation].test(value)) {
+              setInputError(false);
+            } else {
+              setInputError(true);
+              name === 'email' ? setErrorText('Введите корректный адрес e-mail') : setErrorText('Пароль должен содержать не менее одной буквы и цифры, и не быть короче двух символов');
+            }
+          }
           break;
       }
     }
-  }, [value]);
+  }, [name, validations, value]);
 
-
-  return {isEmpty, isEmailError, isPasswordError, emailErrorText, passwordErrorText};
+  return {isEmpty, isError, errorText};
 }
 export default useValidateForm;

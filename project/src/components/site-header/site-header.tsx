@@ -13,7 +13,8 @@ type HeaderProps = {
 
 function SiteHeader({headerFavoriteCount}: HeaderProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const {authorizationStatus, userInfo} = useAppSelector((state) => state);
+  const {authorizationStatus} = useAppSelector((state) => state.user);
+  const {userInfo} = useAppSelector((state) => state.user);
   const isAuthorized = (authorizationStatus === AuthorizationStatus.Auth);
 
   const handleSignOut = (evt: MouseEvent<HTMLAnchorElement>) => {

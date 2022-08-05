@@ -4,7 +4,8 @@ enum AppRoute {
   Favorites = '/favorites',
   Login = '/login',
   Offer = '/offer/:id',
-  Main = '/'
+  Main = '/',
+  NotFound = '*'
 }
 
 enum AuthorizationStatus {
@@ -22,6 +23,7 @@ enum SortType {
 
 enum APIRoute {
   Offers = '/hotels',
+  Comments = '/comments',
   Login = '/login',
   Logout = '/logout',
 }

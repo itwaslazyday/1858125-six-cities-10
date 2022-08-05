@@ -6,7 +6,7 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
-  places: Place[];
+  places: Place[] | undefined;
   classPrefix: string;
   selectedPoint: Place | undefined;
   city: string;
@@ -31,7 +31,7 @@ function Map ({classPrefix, places, selectedPoint, city}: MapProps): JSX.Element
   useEffect(() => {
     const layerGroup = L.layerGroup([]);
     if (map) {
-      places.forEach((place) => {
+      places?.forEach((place) => {
         const marker = new Marker({
           lat: place.location.latitude,
           lng: place.location.longitude,
