@@ -1,4 +1,5 @@
 import {Review} from '../../types/types';
+import {humanizeDate} from '../../utiles/utiles';
 
 function ReviewItem (props: Review): JSX.Element {
   const {comment, date, rating, user} = props;
@@ -19,7 +20,7 @@ function ReviewItem (props: Review): JSX.Element {
           </div>
         </div>
         <p className="reviews__text">{comment}</p>
-        <time className="reviews__time" dateTime={date}>{date}</time>
+        <time className="reviews__time" dateTime={date}>{humanizeDate(date, 'MMMM YYYY')}</time>
       </div>
     </li>
   );

@@ -1,7 +1,8 @@
 import {Link} from 'react-router-dom';
 import {useAppDispatch} from '../../hooks/useAppDispatch/useAppDispatch';
 import {useAppSelector} from '../../hooks/useAppSelector/useAppSelector';
-import {changeCity} from '../../store/action';
+import {changeCity} from '../../store/offers-process/offers-process';
+import {getCity} from '../../store/offers-process/selectors';
 
 type LocationProps = {
   name: string;
@@ -9,7 +10,7 @@ type LocationProps = {
 
 function Location({name}: LocationProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const tappedCity = useAppSelector((state) => (state.offers.city));
+  const tappedCity = useAppSelector(getCity);
 
   return (
     <li className="locations__item" onClick={() => {

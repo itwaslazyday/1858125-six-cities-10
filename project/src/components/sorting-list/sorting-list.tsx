@@ -2,6 +2,8 @@ import SortingItem from '../sorting-item/sorting-item';
 import {useAppSelector} from '../../hooks/useAppSelector/useAppSelector';
 import {useState} from 'react';
 import {SortType} from '../../const';
+import {getCity} from '../../store/offers-process/selectors';
+
 
 type SortingListProps = {
   changeSortType: (sortType: string) => void;
@@ -11,7 +13,7 @@ type SortingListProps = {
 function SortingList({changeSortType, currentSortType}: SortingListProps): JSX.Element {
   const [isSortListVisible, setSortListVisibility] = useState<boolean>(false);
 
-  const tappedCity = useAppSelector((state) => (state.offers.city));
+  const tappedCity = useAppSelector(getCity);
   const [currentCity, setCurrentCity] = useState<string>(tappedCity);
 
   if (currentCity !== tappedCity) {

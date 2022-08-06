@@ -1,4 +1,3 @@
-import {cities} from '../../fish/fish-offers';
 import SiteHeader from '../../components/site-header/site-header';
 import LocationsList from '../../components/locations-list/locations-list';
 import PlacesList from '../../components/places-list/places-list';
@@ -8,12 +7,14 @@ import {Place} from '../../types/types';
 import {useAppSelector} from '../../hooks/useAppSelector/useAppSelector';
 import SortingList from '../../components/sorting-list/sorting-list';
 import {getSortedPlaces} from '../../utiles/utiles';
-import {SortType} from '../../const';
+import {SortType, cities} from '../../const';
+import {getCity} from '../../store/offers-process/selectors';
+import {getOffers} from '../../store/offers-process/selectors';
 
 function MainPage(): JSX.Element {
   const [hoveredCard, setHoveredCard] = useState<Place | undefined>(undefined);
-  const city = useAppSelector((state) => state.offers.city);
-  const currentPlaces = useAppSelector((state) => state.offers.offers).filter((offer) => offer.city.name === city);
+  const city = useAppSelector(getCity);
+  const currentPlaces = useAppSelector(getOffers).filter((offer) => offer.city.name === city);
   const [currentSortType, changeSortType] = useState<string>(SortType.Popular);
   const sortedPlaces = getSortedPlaces(currentPlaces, currentSortType);
 

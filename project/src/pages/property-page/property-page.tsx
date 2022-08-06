@@ -11,17 +11,20 @@ import {useAppDispatch} from '../../hooks/useAppDispatch/useAppDispatch';
 import {fetchOfferAction, fetchCommentsAction, fetchNearbyPlacesAction} from '../../store/api-actions';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import {AuthorizationStatus, AppRoute} from '../../const';
-import {setOfferDataError} from '../../store/action';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
+import {getOfferDataError} from '../../store/errors-process/selectors';
+import {getRoom, getNearby, getComments} from '../../store/offer-process/selectors';
+// import {setOfferDataError} from '../../store/action';
 
 function PropertyPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const currentId = Number(useParams().id);
 
-  const room = useAppSelector((state) => state.offer.room);
-  const offerDataError = useAppSelector((state) => state.errors.offerDataError);
-  const authorizationStatus = useAppSelector((state) => state.user.authorizationStatus);
-  const nearby = useAppSelector((state) => state.offer.nearby);
-  const comments = useAppSelector((state) => state.offer.comments);
+  const room = useAppSelector(getRoom);
+  const offerDataError = useAppSelector(getOfferDataError);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const nearby = useAppSelector(getNearby);
+  const comments = useAppSelector(getComments);
 
   useEffect(() => {
     dispatch(fetchOfferAction(currentId));
@@ -34,7 +37,7 @@ function PropertyPage(): JSX.Element {
       return (<LoadingScreen />);
     }
   } else {
-    dispatch(setOfferDataError(false));
+    // dispatch(setOfferDataError(false));
     return (<Navigate to={AppRoute.NotFound} />);
   }
 

@@ -6,6 +6,9 @@ import {logoutAction} from '../../store/api-actions';
 import {useAppDispatch} from '../../hooks/useAppDispatch/useAppDispatch';
 import {MouseEvent} from 'react';
 
+import {getUserInfo} from '../../store/user-process/selectors';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
+
 
 type HeaderProps = {
   headerFavoriteCount: number;
@@ -13,8 +16,8 @@ type HeaderProps = {
 
 function SiteHeader({headerFavoriteCount}: HeaderProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const {authorizationStatus} = useAppSelector((state) => state.user);
-  const {userInfo} = useAppSelector((state) => state.user);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const userInfo = useAppSelector(getUserInfo);
   const isAuthorized = (authorizationStatus === AuthorizationStatus.Auth);
 
   const handleSignOut = (evt: MouseEvent<HTMLAnchorElement>) => {
