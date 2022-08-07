@@ -8,23 +8,23 @@ import Map from '../../components/map/map';
 import {Navigate} from 'react-router-dom';
 import {useAppSelector} from '../../hooks/useAppSelector/useAppSelector';
 import {useAppDispatch} from '../../hooks/useAppDispatch/useAppDispatch';
-import {fetchOfferAction, fetchCommentsAction, fetchNearbyPlacesAction} from '../../store/api-actions';
+import {fetchOfferAction, fetchCommentsAction, fetchNearbyPlacesAction, fetchAddToFavoritesAction} from '../../store/api-actions';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import {AuthorizationStatus, AppRoute} from '../../const';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import {getOfferDataError} from '../../store/errors-process/selectors';
 import {getRoom, getNearby, getComments} from '../../store/offer-process/selectors';
-// import {setOfferDataError} from '../../store/action';
+import {getFavoriteOffers} from '../../store/offers-process/selectors';
 
 function PropertyPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const currentId = Number(useParams().id);
-
   const room = useAppSelector(getRoom);
   const offerDataError = useAppSelector(getOfferDataError);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const nearby = useAppSelector(getNearby);
   const comments = useAppSelector(getComments);
+  const favoriteOffers = useAppSelector(getFavoriteOffers);
 
   useEffect(() => {
     dispatch(fetchOfferAction(currentId));
@@ -37,14 +37,17 @@ function PropertyPage(): JSX.Element {
       return (<LoadingScreen />);
     }
   } else {
-    // dispatch(setOfferDataError(false));
     return (<Navigate to={AppRoute.NotFound} />);
   }
 
-  const {isPremium, price, rating, title, maxAdults, bedrooms, type, host, description, images} = room;
+  const handleFavoriteButtonClick = () => {
+    dispatch(fetchAddToFavoritesAction({status: +(!isFavorite), id}));
+  };
+
+  const {isPremium, isFavorite, price, rating, title, maxAdults, bedrooms, type, host, description, images, id} = room;
   return (
     <div className="page">
-      <SiteHeader headerFavoriteCount={3}/>
+      <SiteHeader headerFavoriteCount={favoriteOffers.length}/>
       <main className="page__main page__main--property">
         <section className="property">
           <div className="property__gallery-container container">
@@ -60,8 +63,12 @@ function PropertyPage(): JSX.Element {
               {isPremium && <div className="property__mark"><span>Premium</span></div>}
               <div className="property__name-wrapper">
                 <h1 className="property__name">{title}</h1>
-                <button className="property__bookmark-button button" type="button">
-                  <svg className="property__bookmark-icon" width="31" height="33">
+                <button
+                  className={`property__bookmark-button button ${isFavorite ? 'property__bookmark-button--active' : ''}`}
+                  type="button"
+                  onClick={handleFavoriteButtonClick}
+                >
+                  <svg className="place-card__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
                   <span className="visually-hidden">To bookmarks</span>

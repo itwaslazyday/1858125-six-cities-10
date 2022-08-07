@@ -9,7 +9,7 @@ export const rootReducer = combineReducers({
   [NameSpace.User]: userProcess.reducer,
   [NameSpace.Offers]: offersProcess.reducer,
   [NameSpace.Offer]: offerProcess.reducer,
-  [NameSpace.Errors]: errorsProcess.reducer,
+  [NameSpace.Errors]: errorsProcess.reducer
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

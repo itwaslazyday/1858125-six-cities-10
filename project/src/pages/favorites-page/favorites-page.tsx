@@ -1,48 +1,23 @@
 import SiteHeader from '../../components/site-header/site-header';
-import PlaceCard from '../../components/place-card/place-card';
-import {Place} from '../../types/types';
+import {useAppSelector} from '../../hooks/useAppSelector/useAppSelector';
+import {getFavoriteOffers} from '../../store/offers-process/selectors';
+import FavoritesItem from '../../components/favorites-item/favorites-item';
+import {getOffersByCity} from '../../utiles/utiles';
+import {cities} from '../../const';
 
-type FavoritesPageProps = {
-  places: Place[]
-};
+function FavoritesPage(): JSX.Element {
+  const favoriteOffers = useAppSelector(getFavoriteOffers);
+  const offersByCity = getOffersByCity(favoriteOffers);
 
-
-function FavoritesPage(props: FavoritesPageProps): JSX.Element {
-  const {places} = props;
   return (
     <div className="page">
-      <SiteHeader headerFavoriteCount={3}/>
+      <SiteHeader headerFavoriteCount={favoriteOffers.length}/>
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              <li className="favorites__locations-items">
-                <div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <a className="locations__item-link" href="\#">
-                      <span>Amsterdam</span>
-                    </a>
-                  </div>
-                </div>
-                <div className="favorites__places">
-                  <PlaceCard place={places[0]} classPrefix='cities'/>
-                  <PlaceCard place={places[1]} classPrefix='cities'/>
-                </div>
-              </li>
-
-              <li className="favorites__locations-items">
-                <div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <a className="locations__item-link" href="\#">
-                      <span>Cologne</span>
-                    </a>
-                  </div>
-                </div>
-                <div className="favorites__places">
-                  <PlaceCard place={places[2]} classPrefix='cities'/>
-                </div>
-              </li>
+              {cities.map((city) => offersByCity[city.name].length !== 0 ? <FavoritesItem key={city.name} offers={offersByCity[city.name]} city={city.name} /> : '')}
             </ul>
           </section>
         </div>

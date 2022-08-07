@@ -1,23 +1,11 @@
 import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from '../types/state.js';
-import {Place, Review, NewReview} from '../types/types.js';
-import {setAuthError} from './action';
+import {Place, Review, NewReview, FavoriteStatus} from '../types/types.js';
 import {saveToken, dropToken} from '../services/token';
-import {APIRoute, TIMEOUT_SHOW_ERROR} from '../const';
+import {APIRoute} from '../const';
 import {AuthData} from '../types/auth-data';
 import {UserData} from '../types/user-data';
-import {store} from './';
-
-export const clearErrorAction = createAsyncThunk(
-  'app/clearError',
-  () => {
-    setTimeout(
-      () => store.dispatch(setAuthError(null)),
-      TIMEOUT_SHOW_ERROR,
-    );
-  },
-);
 
 export const fetchOffersAction = createAsyncThunk<Place[], undefined, {
   dispatch: AppDispatch,
@@ -76,6 +64,32 @@ export const fetchNewCommentAction = createAsyncThunk<Review[], NewReview, {
   async ({id, rating, review}, {dispatch, extra: api}) => {
     const {data} = await api.post<Review[]>(`${APIRoute.Comments}/${id}`, {rating, comment: review});
     return data;
+  },
+);
+
+export const fetchFavoritesAction = createAsyncThunk<Place[], undefined, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/comments',
+  async (_arg, {dispatch, extra: api}) => {
+    const {data} = await api.get<Place[]>(APIRoute.Favorite);
+    return data;
+  },
+);
+
+export const fetchAddToFavoritesAction = createAsyncThunk<void, FavoriteStatus, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/addToFavorites',
+  async ({id, status}, {dispatch, extra: api}) => {
+    await api.post<Place>(`${APIRoute.Favorite}/${id}/${status}`);
+    dispatch(fetchOffersAction());
+    dispatch(fetchOfferAction(id));
+    dispatch(fetchFavoritesAction());
   },
 );
 

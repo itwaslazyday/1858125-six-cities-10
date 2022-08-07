@@ -61,4 +61,9 @@ type NewReview = {
   id: number;
 };
 
-export type {Place, Review, City, NewReview};
+type FavoriteStatus = {
+  status: number;
+  id: number;
+};
+
+export type {Place, Review, City, NewReview, FavoriteStatus};

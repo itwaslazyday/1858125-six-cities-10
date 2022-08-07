@@ -2,7 +2,6 @@ import {store} from '../store/index';
 import {AuthorizationStatus} from '../const';
 import {AxiosResponse} from 'axios';
 import { Place, Review } from './types';
-import { SerializedError } from '@reduxjs/toolkit';
 
 type UserProcess = {
   authorizationStatus: AuthorizationStatus;
@@ -13,6 +12,7 @@ type OffersProcess = {
   city: string;
   offers: Place[];
   isDataLoaded: boolean;
+  favoriteOffers: Place[];
 };
 
 type OfferProcess = {
@@ -22,7 +22,7 @@ type OfferProcess = {
 };
 
 type ErrorsProcess = {
-  authError: string | null | SerializedError,
+  authError: boolean,
   offerDataError: boolean,
   offerCommentsError: boolean,
   offerNearbyError: boolean

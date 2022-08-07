@@ -1,12 +1,13 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {NameSpace} from '../../const';
-import {fetchOffersAction} from '../api-actions';
+import {fetchOffersAction, fetchFavoritesAction} from '../api-actions';
 import {OffersProcess} from '../../types/state';
 
 const initialState: OffersProcess = {
   city: 'Paris',
   offers: [],
-  isDataLoaded: false
+  isDataLoaded: false,
+  favoriteOffers: []
 };
 
 export const offersProcess = createSlice({
@@ -22,6 +23,9 @@ export const offersProcess = createSlice({
       .addCase(fetchOffersAction.fulfilled, (state, action) => {
         state.offers = action.payload;
         state.isDataLoaded = true;
+      })
+      .addCase(fetchFavoritesAction.fulfilled, (state, action) => {
+        state.favoriteOffers = action.payload;
       });
   }
 });
