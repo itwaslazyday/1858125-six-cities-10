@@ -1,13 +1,14 @@
 import {SortType} from '../const';
 import {Place} from '../types/types';
+import dayjs from 'dayjs';
 
-const sortHighToLow = (placeA: Place, placeB: Place) => placeB.price - placeA.price;
+const humanizeDate = (date: string, format: string) => dayjs(date).format(format);
 
-const sortLowToHigh = (placeA: Place, placeB: Place) => placeA.price - placeB.price;
+const getSortedPlaces = (places: Place[], sortType: string) => {
+  const sortHighToLow = (placeA: Place, placeB: Place) => placeB.price - placeA.price;
+  const sortLowToHigh = (placeA: Place, placeB: Place) => placeA.price - placeB.price;
+  const sortByTopRated = (placeA: Place, placeB: Place) => placeB.rating - placeA.rating;
 
-const sortByTopRated = (placeA: Place, placeB: Place) => placeB.rating - placeA.rating;
-
-export const getSortedPlaces = (places: Place[], sortType: string) => {
   let sortedPlaces;
   switch (sortType) {
     case SortType.LowToHigh:
@@ -24,3 +25,14 @@ export const getSortedPlaces = (places: Place[], sortType: string) => {
   }
   return sortedPlaces;
 };
+
+const getOffersByCity = (offers: Place[]): {[key: string]: Place[]} => ({
+  'Paris': offers.filter((offer) => offer.city.name === 'Paris'),
+  'Cologne': offers.filter((offer) => offer.city.name === 'Cologne'),
+  'Brussels': offers.filter((offer) => offer.city.name === 'Brussels'),
+  'Amsterdam': offers.filter((offer) => offer.city.name === 'Amsterdam'),
+  'Hamburg': offers.filter((offer) => offer.city.name === 'Hamburg'),
+  'Dusseldorf': offers.filter((offer) => offer.city.name === 'Dusseldorf')
+});
+
+export {getSortedPlaces, humanizeDate, getOffersByCity};

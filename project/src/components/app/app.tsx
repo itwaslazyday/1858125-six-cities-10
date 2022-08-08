@@ -8,13 +8,14 @@ import PropertyPage from '../../pages/property-page/property-page';
 import PrivateRoute from '../private-route/private-route';
 import {useAppSelector} from '../../hooks/useAppSelector/useAppSelector';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
-import {Place} from '../../types/types';
+import {getDataLoadedStatus} from '../../store/offers-process/selectors';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
 
 function App(): JSX.Element {
-  const {user} = useAppSelector((state) => state);
-  const {offers} = useAppSelector((state) => state);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const isDataLoaded = useAppSelector(getDataLoadedStatus);
 
-  if (!offers.isDataLoaded) {
+  if (!isDataLoaded) {
     return (
       <LoadingScreen />
     );
@@ -31,8 +32,8 @@ function App(): JSX.Element {
           <Route
             path={AppRoute.Favorites}
             element={
-              <PrivateRoute authorizationStatus={user.authorizationStatus}>
-                <FavoritesPage places={offers.offers.filter((offer: Place) => offer.isFavorite)}/>
+              <PrivateRoute authorizationStatus={authorizationStatus}>
+                <FavoritesPage />
               </PrivateRoute>
             }
           />

@@ -1,11 +1,12 @@
 import Logo from '../../components/logo/logo';
 import {FormEvent} from 'react';
-import {useNavigate} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {useAppDispatch} from '../../hooks/useAppDispatch/useAppDispatch';
 import {loginAction} from '../../store/api-actions';
 import {AuthData} from '../../types/auth-data';
 import {AppRoute} from '../../const';
 import useInput from '../../hooks/useInput/useInput';
+import { changeCity } from '../../store/offers-process/offers-process';
 
 function LoginPage(): JSX.Element {
 
@@ -62,9 +63,12 @@ function LoginPage(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="\#">
+              <Link
+                className="locations__item-link" to="/"
+                onClick={() => {dispatch(changeCity('Amsterdam'));}}
+              >
                 <span>Amsterdam</span>
-              </a>
+              </Link>
             </div>
           </section>
         </div>

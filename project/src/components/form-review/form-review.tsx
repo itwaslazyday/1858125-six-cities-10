@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {memo, useState} from 'react';
 import FormRating from '../ form-rating/form-rating';
 import {fetchNewCommentAction} from '../../store/api-actions';
 import {NewReview} from '../../types/types';
@@ -60,4 +60,4 @@ function FormReview({currentId}: FormReviewProps): JSX.Element {
   );
 }
 
-export default FormReview;
+export default memo(FormReview);

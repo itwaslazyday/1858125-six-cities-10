@@ -1,11 +1,12 @@
 import Location from '../../components/location/location';
 import {City} from '../../types/types';
+import {memo} from 'react';
 
 type LocationsListProps = {
   cities: City[];
 };
 
-export default function LocationsList({cities}: LocationsListProps): JSX.Element {
+function LocationsList({cities}: LocationsListProps): JSX.Element {
 
   return (
     <ul className="locations__list tabs__list">
@@ -13,3 +14,5 @@ export default function LocationsList({cities}: LocationsListProps): JSX.Element
     </ul>
   );
 }
+
+export default memo(LocationsList);

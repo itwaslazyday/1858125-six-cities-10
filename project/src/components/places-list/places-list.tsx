@@ -1,18 +1,22 @@
 import PlaceCard from '../place-card/place-card';
 import {Place} from '../../types/types';
+import {useMemo, memo} from 'react';
+import {getSortedPlaces} from '../../utiles/utiles';
 
 type PlacesListProps = {
-  places: Place[];
+  currentPlaces: Place[];
   setHoveredCard: (place: Place | undefined) => void;
+  currentSortType: string;
 };
 
-function PlacesList({places, setHoveredCard}: PlacesListProps): JSX.Element {
+function PlacesList({currentPlaces, setHoveredCard, currentSortType}: PlacesListProps): JSX.Element {
+  const sortedPlaces = useMemo(() => getSortedPlaces(currentPlaces, currentSortType), [currentPlaces, currentSortType]);
 
   return (
     <div className="cities__places-list places__list tabs__content">
-      {places.map((place) => <PlaceCard key={place.id} place={place} classPrefix='cities' setHoveredCard={setHoveredCard} />)}
+      {sortedPlaces.map((place) => <PlaceCard key={place.id} place={place} classPrefix='cities' setHoveredCard={setHoveredCard} />)}
     </div>
   );
 }
 
-export default PlacesList;
+export default memo(PlacesList);

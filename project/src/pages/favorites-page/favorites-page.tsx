@@ -1,50 +1,21 @@
 import SiteHeader from '../../components/site-header/site-header';
-import PlaceCard from '../../components/place-card/place-card';
-import {Place} from '../../types/types';
+import {useAppSelector} from '../../hooks/useAppSelector/useAppSelector';
+import {getFavoriteOffers} from '../../store/offers-process/selectors';
+import {cities} from '../../const';
+import FavoritesEmpty from '../../components/favorites-empty/favorites-empty';
+import FavoritesNotEmpty from '../../components/favorites-not-empty/favorites-not-empty';
 
-type FavoritesPageProps = {
-  places: Place[]
-};
+function FavoritesPage(): JSX.Element {
+  const favoriteOffers = useAppSelector(getFavoriteOffers);
 
-
-function FavoritesPage(props: FavoritesPageProps): JSX.Element {
-  const {places} = props;
   return (
     <div className="page">
-      <SiteHeader headerFavoriteCount={3}/>
+      <SiteHeader />
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
-          <section className="favorites">
-            <h1 className="favorites__title">Saved listing</h1>
-            <ul className="favorites__list">
-              <li className="favorites__locations-items">
-                <div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <a className="locations__item-link" href="\#">
-                      <span>Amsterdam</span>
-                    </a>
-                  </div>
-                </div>
-                <div className="favorites__places">
-                  <PlaceCard place={places[0]} classPrefix='cities'/>
-                  <PlaceCard place={places[1]} classPrefix='cities'/>
-                </div>
-              </li>
-
-              <li className="favorites__locations-items">
-                <div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <a className="locations__item-link" href="\#">
-                      <span>Cologne</span>
-                    </a>
-                  </div>
-                </div>
-                <div className="favorites__places">
-                  <PlaceCard place={places[2]} classPrefix='cities'/>
-                </div>
-              </li>
-            </ul>
-          </section>
+          {favoriteOffers.length ?
+            <FavoritesNotEmpty cities={cities} favoriteOffers={favoriteOffers}/> :
+            <FavoritesEmpty/>}
         </div>
       </main>
       <footer className="footer container">
