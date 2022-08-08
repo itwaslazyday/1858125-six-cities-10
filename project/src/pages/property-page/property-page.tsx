@@ -14,7 +14,6 @@ import {AuthorizationStatus, AppRoute} from '../../const';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import {getOfferDataError} from '../../store/errors-process/selectors';
 import {getRoom, getNearby, getComments} from '../../store/offer-process/selectors';
-import {getFavoriteOffers} from '../../store/offers-process/selectors';
 
 function PropertyPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -24,7 +23,6 @@ function PropertyPage(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const nearby = useAppSelector(getNearby);
   const comments = useAppSelector(getComments);
-  const favoriteOffers = useAppSelector(getFavoriteOffers);
 
   useEffect(() => {
     dispatch(fetchOfferAction(currentId));
@@ -47,7 +45,7 @@ function PropertyPage(): JSX.Element {
   const {isPremium, isFavorite, price, rating, title, maxAdults, bedrooms, type, host, description, images, id} = room;
   return (
     <div className="page">
-      <SiteHeader headerFavoriteCount={favoriteOffers.length}/>
+      <SiteHeader />
       <main className="page__main page__main--property">
         <section className="property">
           <div className="property__gallery-container container">

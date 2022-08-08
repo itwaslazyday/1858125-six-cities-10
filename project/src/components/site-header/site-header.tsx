@@ -4,18 +4,14 @@ import {Link} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {logoutAction} from '../../store/api-actions';
 import {useAppDispatch} from '../../hooks/useAppDispatch/useAppDispatch';
-import {MouseEvent} from 'react';
-
+import {memo, MouseEvent} from 'react';
+import {getFavoriteOffers} from '../../store/offers-process/selectors';
 import {getUserInfo} from '../../store/user-process/selectors';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 
-
-type HeaderProps = {
-  headerFavoriteCount: number;
-}
-
-function SiteHeader({headerFavoriteCount}: HeaderProps): JSX.Element {
+function SiteHeader(): JSX.Element {
   const dispatch = useAppDispatch();
+  const favoriteOffersCount = useAppSelector(getFavoriteOffers).length;
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const userInfo = useAppSelector(getUserInfo);
   const isAuthorized = (authorizationStatus === AuthorizationStatus.Auth);
@@ -38,7 +34,7 @@ function SiteHeader({headerFavoriteCount}: HeaderProps): JSX.Element {
                   {isAuthorized ?
                     <p style={{margin: 0}}>
                       <span className="header__user-name user__name">{userInfo?.email}</span>
-                      <span className="header__favorite-count">{headerFavoriteCount}</span>
+                      <span className="header__favorite-count">{favoriteOffersCount}</span>
                     </p> :
                     <span className="header__user-name user__name">Sign in</span>}
                 </Link>
@@ -57,4 +53,4 @@ function SiteHeader({headerFavoriteCount}: HeaderProps): JSX.Element {
   );
 }
 
-export default SiteHeader;
+export default memo(SiteHeader);

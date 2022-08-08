@@ -72,7 +72,7 @@ export const fetchFavoritesAction = createAsyncThunk<Place[], undefined, {
   state: State,
   extra: AxiosInstance
 }>(
-  'data/comments',
+  'data/favorites',
   async (_arg, {dispatch, extra: api}) => {
     const {data} = await api.get<Place[]>(APIRoute.Favorite);
     return data;

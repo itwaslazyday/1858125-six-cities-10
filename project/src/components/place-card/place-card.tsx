@@ -26,10 +26,16 @@ function PlaceCard({place, classPrefix, setHoveredCard}: PlaceCardProps): JSX.El
       {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
       <div className={`${classPrefix}__image-wrapper place-card__image-wrapper`}>
         <Link to={`/offer/${id}`}>
-          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place"/>
+          <img
+            className="place-card__image"
+            src={previewImage}
+            width={`${classPrefix === 'favorites' ? 150 : 260}`}
+            height={`${classPrefix === 'favorites' ? 110 : 200}`}
+            alt="Place"
+          />
         </Link>
       </div>
-      <div className="place-card__info">
+      <div className={`${classPrefix === 'favorites' ? 'favorites__card-info' : ''} place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>

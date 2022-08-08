@@ -1,5 +1,6 @@
 import PlaceCard from '../place-card/place-card';
 import {Place} from '../../types/types';
+import { memo } from 'react';
 
 type NearbyPlacesListProps = {
   places: Place[] | null;
@@ -15,4 +16,4 @@ function NearbyPlacesList(props: NearbyPlacesListProps): JSX.Element {
   );
 }
 
-export default NearbyPlacesList;
+export default memo(NearbyPlacesList);

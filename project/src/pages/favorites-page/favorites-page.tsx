@@ -1,25 +1,21 @@
 import SiteHeader from '../../components/site-header/site-header';
 import {useAppSelector} from '../../hooks/useAppSelector/useAppSelector';
 import {getFavoriteOffers} from '../../store/offers-process/selectors';
-import FavoritesItem from '../../components/favorites-item/favorites-item';
-import {getOffersByCity} from '../../utiles/utiles';
 import {cities} from '../../const';
+import FavoritesEmpty from '../../components/favorites-empty/favorites-empty';
+import FavoritesNotEmpty from '../../components/favorites-not-empty/favorites-not-empty';
 
 function FavoritesPage(): JSX.Element {
   const favoriteOffers = useAppSelector(getFavoriteOffers);
-  const offersByCity = getOffersByCity(favoriteOffers);
 
   return (
     <div className="page">
-      <SiteHeader headerFavoriteCount={favoriteOffers.length}/>
+      <SiteHeader />
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
-          <section className="favorites">
-            <h1 className="favorites__title">Saved listing</h1>
-            <ul className="favorites__list">
-              {cities.map((city) => offersByCity[city.name].length !== 0 ? <FavoritesItem key={city.name} offers={offersByCity[city.name]} city={city.name} /> : '')}
-            </ul>
-          </section>
+          {favoriteOffers.length ?
+            <FavoritesNotEmpty cities={cities} favoriteOffers={favoriteOffers}/> :
+            <FavoritesEmpty/>}
         </div>
       </main>
       <footer className="footer container">

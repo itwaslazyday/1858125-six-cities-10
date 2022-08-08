@@ -1,6 +1,6 @@
 import SortingItem from '../sorting-item/sorting-item';
 import {useAppSelector} from '../../hooks/useAppSelector/useAppSelector';
-import {useState} from 'react';
+import {memo, useState} from 'react';
 import {SortType} from '../../const';
 import {getCity} from '../../store/offers-process/selectors';
 
@@ -38,4 +38,4 @@ function SortingList({changeSortType, currentSortType}: SortingListProps): JSX.E
   );
 }
 
-export default SortingList;
+export default memo(SortingList);
