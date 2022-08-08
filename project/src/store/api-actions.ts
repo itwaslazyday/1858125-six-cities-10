@@ -85,11 +85,12 @@ export const fetchAddToFavoritesAction = createAsyncThunk<void, FavoriteStatus, 
   extra: AxiosInstance
 }>(
   'data/addToFavorites',
-  async ({id, status}, {dispatch, extra: api}) => {
+  async ({id, status, currentId}, {dispatch, extra: api}) => {
     await api.post<Place>(`${APIRoute.Favorite}/${id}/${status}`);
     dispatch(fetchOffersAction());
-    dispatch(fetchOfferAction(id));
+    dispatch(fetchOfferAction(currentId ? currentId : id));
     dispatch(fetchFavoritesAction());
+    if (currentId) {dispatch(fetchNearbyPlacesAction(currentId));}
   },
 );
 

@@ -64,6 +64,7 @@ type NewReview = {
 type FavoriteStatus = {
   status: number;
   id: number;
+  currentId?: number;
 };
 
 export type {Place, Review, City, NewReview, FavoriteStatus};

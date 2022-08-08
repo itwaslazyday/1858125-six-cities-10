@@ -1,4 +1,4 @@
-import {Link} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import {Place} from '../../types/types';
 import {useAppDispatch} from '../../hooks/useAppDispatch/useAppDispatch';
 import {fetchAddToFavoritesAction} from '../../store/api-actions';
@@ -11,11 +11,14 @@ type PlaceCardProps = {
 };
 
 function PlaceCard({place, classPrefix, setHoveredCard}: PlaceCardProps): JSX.Element {
+  const currentId = Number(useParams().id);
   const dispatch = useAppDispatch();
   const {id, isPremium, isFavorite, price, rating, title, type, previewImage} = place;
 
   const handleFavoriteButtonClick = () => {
-    dispatch(fetchAddToFavoritesAction({status: +(!isFavorite), id}));
+    classPrefix === 'near-places' ?
+      dispatch(fetchAddToFavoritesAction({status: +(!isFavorite), id, currentId})) :
+      dispatch(fetchAddToFavoritesAction({status: +(!isFavorite), id}));
   };
 
   return (

@@ -9,6 +9,7 @@ import SortingList from '../../components/sorting-list/sorting-list';
 import {SortType, cities} from '../../const';
 import {getCity} from '../../store/offers-process/selectors';
 import {getOffers} from '../../store/offers-process/selectors';
+import MainPageEmpty from './main-page-empty';
 
 function MainPage(): JSX.Element {
   const [hoveredCard, setHoveredCard] = useState<Place | undefined>(undefined);
@@ -27,19 +28,21 @@ function MainPage(): JSX.Element {
             <LocationsList cities={cities}/>
           </section>
         </div>
-        <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{currentPlaces.length} places to stay in {city}</b>
-              <SortingList changeSortType={changeSortType} currentSortType={currentSortType}/>
-              <PlacesList currentPlaces={currentPlaces} currentSortType={currentSortType} setHoveredCard={setHoveredCard}/>
-            </section>
-            <div className="cities__right-section">
-              <Map places={currentPlaces} classPrefix='cities' selectedPoint={hoveredCard} city={city}/>
+        {currentPlaces.length ?
+          <div className="cities">
+            <div className="cities__places-container container">
+              <section className="cities__places places">
+                <h2 className="visually-hidden">Places</h2>
+                <b className="places__found">{currentPlaces.length} places to stay in {city}</b>
+                <SortingList changeSortType={changeSortType} currentSortType={currentSortType}/>
+                <PlacesList currentPlaces={currentPlaces} currentSortType={currentSortType} setHoveredCard={setHoveredCard}/>
+              </section>
+              <div className="cities__right-section">
+                <Map places={currentPlaces} classPrefix='cities' selectedPoint={hoveredCard} city={city}/>
+              </div>
             </div>
-          </div>
-        </div>
+          </div> :
+          <MainPageEmpty city={city}/>}
       </main>
     </div>
   );
