@@ -18,6 +18,8 @@ function MainPage(): JSX.Element {
   const offers = useAppSelector(getOffers);
   const currentPlaces = useMemo(() => offers.filter((offer) => offer.city.name === city), [city, offers]);
 
+  //Вторая часть домашнего задания была сделана вместе с первой.
+
   return (
     <div className="page page--gray page--main">
       <SiteHeader />
