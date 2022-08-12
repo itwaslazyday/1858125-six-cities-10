@@ -1,12 +1,17 @@
 import SiteHeader from '../../components/site-header/site-header';
 import {Link} from 'react-router-dom';
+import './not-found-page.css';
 
 function NotFoundPage(): JSX.Element {
   return (
-    <section>
+    <section className="wrapper">
       <SiteHeader />
-      <h1>404. Page not found</h1>
-      <Link to="/">Вернуться на главную</Link>
+      <div className="landing">
+        <div style={{textAlign: 'center'}} className="landing__icon">
+        </div>
+        <h1 className="landing__header">404. Page not found</h1>
+        <Link to="/" className="landing__link">Back to main</Link>
+      </div>
     </section>
   );
 }

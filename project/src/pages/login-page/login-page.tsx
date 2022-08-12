@@ -49,13 +49,32 @@ function LoginPage(): JSX.Element {
             <h1 className="login__title">Sign in</h1>
             <form className="login__form form" action="#" method="post" onSubmit={handleFormSubmit}>
               <div className="login__input-wrapper form__input-wrapper">
-                <label className="visually-hidden">E-mail</label>
-                <input onChange={email.onChange} onBlur={email.onBlur} value={email.value} className="login__input form__input" type="email" name="email" placeholder="Email"/>
+                <label className="visually-hidden" htmlFor="email">E-mail</label>
+                <input
+                  onChange={email.onChange}
+                  onBlur={email.onBlur}
+                  value={email.value}
+                  id="email"
+                  className="login__input form__input"
+                  type="email" name="email"
+                  placeholder="Email"
+                  data-testid="login"
+                />
               </div>
               {(email.isDirty && email.isError) && <p style={{margin: '-10px 0 10px', color: 'red'}}>{email.errorText}</p>}
               <div className="login__input-wrapper form__input-wrapper">
-                <label className="visually-hidden">Password</label>
-                <input onChange={password.onChange} onBlur={password.onBlur} value={password.value} className="login__input form__input" type="password" name="password" placeholder="Password"/>
+                <label className="visually-hidden" htmlFor="password">Password</label>
+                <input
+                  onChange={password.onChange}
+                  onBlur={password.onBlur}
+                  value={password.value}
+                  id="password"
+                  className="login__input form__input"
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  data-testid="password"
+                />
               </div>
               {(password.isDirty && password.isError) && <p style={{margin: '-10px 0 10px', color: 'red'}}>{password.errorText}</p>}
               <button disabled={email.isError || password.isError} className="login__submit form__submit button" type="submit">Sign in</button>
