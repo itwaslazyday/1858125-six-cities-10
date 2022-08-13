@@ -16,16 +16,16 @@ describe('Async actions', () => {
   const mockAPI = new MockAdapter(api);
   const middlewares = [thunk.withExtraArgument(api)];
 
-  const localStorageMock = {
-    getItem: jest.fn(),
-    setItem: jest.fn(),
-    removeItem: jest.fn(),
-    length: 0,
-    clear: jest.fn(),
-    key: jest.fn()
-  };
+  let mockStorage: {[key: string]: string} = {};
 
-  global.localStorage = localStorageMock;
+  global.Storage.prototype.setItem = jest.fn((key, value) => {mockStorage[key] = value;});
+  global.Storage.prototype.getItem = jest.fn((key) => (mockStorage[key]));
+  global.Storage.prototype.removeItem = jest.fn();
+
+
+  beforeEach(() => {
+    mockStorage = {};
+  });
 
   const mockStore = configureMockStore<
       State,
@@ -71,8 +71,8 @@ describe('Async actions', () => {
       loginAction.fulfilled.type
     ]);
 
-    expect(localStorageMock.setItem).toBeCalledTimes(1);
-    expect(localStorageMock.setItem).toBeCalledWith('six-cities-token', 'secret');
+    expect(localStorage.setItem).toBeCalledTimes(1);
+    expect(localStorage.setItem).toBeCalledWith('six-cities-token', 'secret');
   });
 
   it('should dispatch Logout when Delete /logout', async () => {
@@ -91,8 +91,8 @@ describe('Async actions', () => {
       logoutAction.fulfilled.type
     ]);
 
-    expect(localStorageMock.removeItem).toBeCalledTimes(1);
-    expect(localStorageMock.removeItem).toBeCalledWith('six-cities-token');
+    expect(localStorage.removeItem).toBeCalledTimes(1);
+    expect(localStorage.removeItem).toBeCalledWith('six-cities-token');
   });
 
   it('should dispatch fetchOffersAction when GET /offers', async () => {

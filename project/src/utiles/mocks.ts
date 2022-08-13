@@ -26,7 +26,7 @@ const makeFakeOffer = () : Place => (
         }
       },
       previewImage: image.imageUrl(),
-      images: new Array(10).fill(null).map(() => (image.imageUrl())),
+      images: new Array(3).fill(null).map(() => (image.image())),
       title: random.word(),
       isFavorite: datatype.boolean(),
       isPremium: datatype.boolean(),

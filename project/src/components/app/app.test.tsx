@@ -8,8 +8,20 @@ import App from './app';
 import '@testing-library/jest-dom/extend-expect';
 import { makeFakeOfferProcess, makeFakeOffersProcess } from '../../utiles/mocks';
 import { Place } from '../../types/types';
+import {State} from '../../types/state';
+import {Action} from 'redux';
+import thunk, {ThunkDispatch} from 'redux-thunk';
+import { createAPI } from '../../services/api';
 
-const mockStore = configureMockStore();
+const api = createAPI();
+const middlewares = [thunk.withExtraArgument(api)];
+
+const mockStore = configureMockStore<
+    State,
+    Action,
+    ThunkDispatch<State, typeof api, Action>
+  >(middlewares);
+
 const mockOffers = makeFakeOffersProcess();
 const mockOffer = makeFakeOfferProcess().room as Place;
 mockOffer.city.name = 'Paris';
