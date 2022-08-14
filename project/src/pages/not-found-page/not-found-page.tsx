@@ -7,9 +7,7 @@ function NotFoundPage(): JSX.Element {
     <section className="wrapper">
       <SiteHeader />
       <div className="landing">
-        <div style={{textAlign: 'center'}} className="landing__icon">
-        </div>
-        <h1 className="landing__header">404. Page not found</h1>
+        <h1 className="landing__header visually-hidden">404. Page not found</h1>
         <Link to="/" className="landing__link">Back to main</Link>
       </div>
     </section>

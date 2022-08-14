@@ -3,27 +3,13 @@
   margin: auto;
 }
 .landing {
-  height: 500px;
+  height: 800px;
   margin: 0;
-  border-radius: 8px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
-}
-.landing__icon svg {
-  width: 50%;
-  max-height: 500px;
-  height: auto;
-  margin: 0 0 15px;
-}
-.landing__header {
-  font-family: sans-serif;
-  color: rgba(0,0,0,0.75);
-  font-size: 50px;
-  margin: 0;
-  line-height: 3.5em;
-  font-weight: 100;
+  background: url(../../../public/img/404-not-found-page.svg) no-repeat center;
 }
 
 .landing__link {
@@ -37,5 +23,6 @@
   background: #4481c3;
   color: #fff;
   border: none;
+  margin-bottom: 25px;
   box-shadow: 0 4px 8px 0 #ccc;
 }
