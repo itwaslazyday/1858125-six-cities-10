@@ -25,6 +25,7 @@ function PlaceCard({place, classPrefix, setHoveredCard}: PlaceCardProps): JSX.El
     <article className={`${classPrefix}__card place-card`}
       onMouseOver={() => {if (setHoveredCard) {setHoveredCard(place);}}}
       onMouseLeave={() => {if (setHoveredCard) {setHoveredCard(undefined);}}}
+      data-testid="place-card"
     >
       {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
       <div className={`${classPrefix}__image-wrapper place-card__image-wrapper`}>

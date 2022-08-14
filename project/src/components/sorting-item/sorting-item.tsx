@@ -7,8 +7,11 @@ type SortingItemProps = {
 
 function SortingItem({currentSortType, sortType, changeSortType, setSortListVisibility}: SortingItemProps): JSX.Element {
   return (
-    <li className={`places__option ${currentSortType === sortType ? 'places__option--active' : ''}`}
-      tabIndex={0} onClick={() => {
+    <li
+      className={`places__option ${currentSortType === sortType ? 'places__option--active' : ''}`}
+      data-testid="sorting-item"
+      tabIndex={0}
+      onClick={() => {
         changeSortType(sortType);
         setSortListVisibility(false);}}
     >

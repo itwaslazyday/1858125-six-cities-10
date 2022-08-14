@@ -1,9 +1,10 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import {Provider} from 'react-redux';
 import {store} from './store';
 import {checkAuthAction, fetchOffersAction, fetchFavoritesAction} from './store/api-actions';
+import HistoryRouter from './components/history-route/history-route';
+import browserHistory from './browser-history';
 
 store.dispatch(fetchOffersAction());
 store.dispatch(fetchFavoritesAction());
@@ -15,6 +16,8 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <Provider store = {store}>
-    <App/>
+    <HistoryRouter history={browserHistory}>
+      <App/>
+    </HistoryRouter>
   </Provider>
 );

@@ -2,6 +2,7 @@ import {SortType} from '../const';
 import {Place} from '../types/types';
 import dayjs from 'dayjs';
 
+
 const humanizeDate = (date: string, format: string) => dayjs(date).format(format);
 
 const getSortedPlaces = (places: Place[], sortType: string) => {
