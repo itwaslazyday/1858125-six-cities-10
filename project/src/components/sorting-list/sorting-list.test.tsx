@@ -6,11 +6,12 @@ import { Provider } from 'react-redux';
 import { store } from '../../store';
 import { createMemoryHistory } from 'history';
 import { SortType } from '../../const';
+import userEvent from '@testing-library/user-event';
 
 describe('Component: SortingList', () => {
   const history = createMemoryHistory();
 
-  it('should render correctly', () => {
+  it('should check list opening', () => {
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>
@@ -20,5 +21,9 @@ describe('Component: SortingList', () => {
 
     expect(screen.getByText(/Price: high to low/i)).toBeInTheDocument();
     expect(screen.getAllByTestId('sorting-item').length).toBe(Array.from(Object.values(SortType)).length);
+    expect(screen.getByTestId('sorting-list')).not.toHaveClass('places__options--opened');
+
+    userEvent.click(screen.getByTestId('sorting-type'));
+    expect(screen.getByTestId('sorting-list')).toHaveClass('places__options--opened');
   });
 });

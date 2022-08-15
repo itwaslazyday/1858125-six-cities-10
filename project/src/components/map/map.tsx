@@ -52,7 +52,7 @@ function Map ({classPrefix, places, selectedPoint, city}: MapProps): JSX.Element
   }, [map, places, selectedPoint]);
 
   return (
-    <section className={`${classPrefix}__map map`} ref={mapRef}></section>
+    <section className={`${classPrefix}__map map`} ref={mapRef} data-testid="map"></section>
   );
 }
 

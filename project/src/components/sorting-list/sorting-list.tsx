@@ -25,13 +25,21 @@ function SortingList({changeSortType, currentSortType}: SortingListProps): JSX.E
   return (
     <div className="places__sorting">
       <span className="places__sorting-caption">Sort by </span>
-      <span className="places__sorting-type" tabIndex={0} onClick={() => setSortListVisibility(!isSortListVisible)}>
+      <span
+        className="places__sorting-type"
+        tabIndex={0}
+        onClick={() => setSortListVisibility(!isSortListVisible)}
+        data-testid='sorting-type'
+      >
         {currentSortType}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
       </span>
-      <ul className={`places__options places__options--custom ${isSortListVisible ? 'places__options--opened' : ''}`}>
+      <ul
+        data-testid='sorting-list'
+        className={`places__options places__options--custom ${isSortListVisible ? 'places__options--opened' : ''}`}
+      >
         {Array.from(Object.values(SortType)).map((item) => <SortingItem key={item} currentSortType={currentSortType} sortType={item} changeSortType={changeSortType} setSortListVisibility={setSortListVisibility}/>)}
       </ul>
     </div>
