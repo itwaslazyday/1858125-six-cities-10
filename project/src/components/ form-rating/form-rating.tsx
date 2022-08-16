@@ -21,7 +21,14 @@ function FormRating({isChecked, handleFieldChange, index}: FormRatingProps): JSX
 
   return (
     <React.Fragment>
-      <input className="form__rating-input visually-hidden" name="rating" value={index} id={`${index}-stars`} type="radio" onChange={(evt) => {handleFieldChange(evt);}} checked={isChecked}/>
+      <input
+        className="form__rating-input visually-hidden"
+        name="rating"
+        value={index} id={`${index}-stars`}
+        type="radio"
+        onChange={(evt) => {handleFieldChange(evt);}}
+        checked={isChecked}
+      />
       <label htmlFor={`${index}-stars`} className="reviews__rating-label form__rating-label" title={getTitle(index)}>
         <svg className="form__star-image" width="37" height="33">
           <use xlinkHref="#icon-star"></use>
