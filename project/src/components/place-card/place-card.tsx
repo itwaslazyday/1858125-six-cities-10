@@ -1,7 +1,10 @@
-import {Link, useParams} from 'react-router-dom';
+import {Link, useNavigate, useParams} from 'react-router-dom';
 import {Place} from '../../types/types';
 import {useAppDispatch} from '../../hooks/useAppDispatch/useAppDispatch';
 import {fetchAddToFavoritesAction} from '../../store/api-actions';
+import { AppRoute, AuthorizationStatus } from '../../const';
+import {useAppSelector} from '../../hooks/useAppSelector/useAppSelector';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 
 type PlaceCardProps = {
@@ -13,12 +16,18 @@ type PlaceCardProps = {
 function PlaceCard({place, classPrefix, setHoveredCard}: PlaceCardProps): JSX.Element {
   const currentId = Number(useParams().id);
   const dispatch = useAppDispatch();
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const navigate = useNavigate();
   const {id, isPremium, isFavorite, price, rating, title, type, previewImage} = place;
 
   const handleFavoriteButtonClick = () => {
-    classPrefix === 'near-places' ?
-      dispatch(fetchAddToFavoritesAction({status: +(!isFavorite), id, currentId})) :
-      dispatch(fetchAddToFavoritesAction({status: +(!isFavorite), id}));
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      classPrefix === 'near-places' ?
+        dispatch(fetchAddToFavoritesAction({status: +(!isFavorite), id, currentId})) :
+        dispatch(fetchAddToFavoritesAction({status: +(!isFavorite), id}));
+    } else {
+      navigate(AppRoute.Login);
+    }
   };
 
   return (
