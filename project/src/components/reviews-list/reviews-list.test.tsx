@@ -5,11 +5,11 @@ import '@testing-library/jest-dom/extend-expect';
 import { Provider } from 'react-redux';
 import { store } from '../../store';
 import ReviewsList from './reviews-list';
-import { makeFakeOfferProcess } from '../../utiles/mocks';
+import {makeFakeComment} from '../../utiles/mocks';
 import { Review } from '../../types/types';
 
 const history = createMemoryHistory();
-const mockComments = makeFakeOfferProcess().comments as Review[];
+const mockComments = new Array(15).fill(null).map(() => makeFakeComment()) as Review[];
 
 describe('Component: ReviewsList', () => {
   it('should render correctly', () => {
@@ -20,6 +20,6 @@ describe('Component: ReviewsList', () => {
         </HistoryRouter>
       </Provider>);
 
-    expect(screen.getAllByTestId('review').length).toBe(3);
+    expect(screen.getAllByTestId('review').length).toBe(10);
   });
 });

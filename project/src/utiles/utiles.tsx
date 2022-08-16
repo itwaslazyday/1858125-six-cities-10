@@ -2,6 +2,11 @@ import {SortType} from '../const';
 import {Place} from '../types/types';
 import dayjs from 'dayjs';
 
+const getRandomInteger = (min: number, max: number) => {
+  const result = Math.floor(Math.random() * (max - min + 1) + min);
+  return result;
+};
+
 
 const humanizeDate = (date: string, format: string) => dayjs(date).format(format);
 
@@ -36,4 +41,4 @@ const getOffersByCity = (offers: Place[]): {[key: string]: Place[]} => ({
   'Dusseldorf': offers.filter((offer) => offer.city.name === 'Dusseldorf')
 });
 
-export {getSortedPlaces, humanizeDate, getOffersByCity};
+export {getSortedPlaces, humanizeDate, getOffersByCity, getRandomInteger};

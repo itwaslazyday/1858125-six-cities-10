@@ -25,6 +25,7 @@ type ErrorsProcess = {
   authError: boolean,
   offerDataError: boolean,
   offerCommentsError: boolean,
+  newCommentError: boolean,
   offerNearbyError: boolean
 };
 

@@ -1,0 +1,9 @@
+.comment-error {
+  color: tomato;
+  margin: 0;
+  padding: 5px;
+  font-size: 14px;
+  line-height: 1.3;
+  font-family: inherit;
+  max-width: 65%;
+}

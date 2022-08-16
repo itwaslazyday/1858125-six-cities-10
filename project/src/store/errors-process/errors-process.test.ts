@@ -10,6 +10,7 @@ describe('Reducer: errors', () => {
       authError: false,
       offerDataError: false,
       offerCommentsError: false,
+      newCommentError: false,
       offerNearbyError: false
     };
   });
