@@ -1,4 +1,4 @@
-import {render, screen} from '@testing-library/react';
+import {fireEvent, render, screen} from '@testing-library/react';
 import SortingList from './sorting-list';
 import '@testing-library/jest-dom/extend-expect';
 import HistoryRouter from '../history-route/history-route';
@@ -6,7 +6,6 @@ import { Provider } from 'react-redux';
 import { store } from '../../store';
 import { createMemoryHistory } from 'history';
 import { SortType } from '../../const';
-import userEvent from '@testing-library/user-event';
 
 describe('Component: SortingList', () => {
   const history = createMemoryHistory();
@@ -23,7 +22,7 @@ describe('Component: SortingList', () => {
     expect(screen.getAllByTestId('sorting-item').length).toBe(Array.from(Object.values(SortType)).length);
     expect(screen.getByTestId('sorting-list')).not.toHaveClass('places__options--opened');
 
-    userEvent.click(screen.getByTestId('sorting-type'));
+    fireEvent.click(screen.getByTestId('sorting-type'));
     expect(screen.getByTestId('sorting-list')).toHaveClass('places__options--opened');
   });
 });
