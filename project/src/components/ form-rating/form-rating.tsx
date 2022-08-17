@@ -4,6 +4,7 @@ import {ChangeEvent} from 'react';
 type FormRatingProps = {
   index: number;
   isChecked: boolean;
+  isDisabled: boolean;
   handleFieldChange: (evt: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
@@ -17,7 +18,7 @@ const ratingTitle: string[] = [
 
 const getTitle = (index: number) => ratingTitle.find((_item, idx) => index === (idx + 1)) as string;
 
-function FormRating({isChecked, handleFieldChange, index}: FormRatingProps): JSX.Element {
+function FormRating({isChecked, handleFieldChange, index, isDisabled}: FormRatingProps): JSX.Element {
 
   return (
     <React.Fragment>
@@ -28,8 +29,9 @@ function FormRating({isChecked, handleFieldChange, index}: FormRatingProps): JSX
         type="radio"
         onChange={(evt) => {handleFieldChange(evt);}}
         checked={isChecked}
+        disabled={isDisabled}
       />
-      <label htmlFor={`${index}-stars`} className="reviews__rating-label form__rating-label" title={getTitle(index)}>
+      <label htmlFor={`${index}-stars`} className="reviews__rating-label form__rating-label" style={isDisabled ? {pointerEvents: 'none'} : {}} title={getTitle(index)}>
         <svg className="form__star-image" width="37" height="33">
           <use xlinkHref="#icon-star"></use>
         </svg>

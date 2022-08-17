@@ -1,5 +1,5 @@
 import SiteHeader from '../../components/site-header/site-header';
-import {useParams} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import {useEffect} from 'react';
 import FormReview from '../../components/form-review/form-review';
 import ReviewsList from '../../components/reviews-list/reviews-list';
@@ -17,6 +17,7 @@ import {getRoom, getNearby, getComments} from '../../store/offer-process/selecto
 
 function PropertyPage(): JSX.Element {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const currentId = Number(useParams().id);
   const room = useAppSelector(getRoom);
   const offerDataError = useAppSelector(getOfferDataError);
@@ -39,7 +40,11 @@ function PropertyPage(): JSX.Element {
   }
 
   const handleFavoriteButtonClick = () => {
-    dispatch(fetchAddToFavoritesAction({status: +(!isFavorite), id}));
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      dispatch(fetchAddToFavoritesAction({status: +(!isFavorite), id}));
+    } else {
+      navigate(AppRoute.Login);
+    }
   };
 
   const {isPremium, isFavorite, price, rating, title, maxAdults, bedrooms, type, host, description, images, id} = room;
@@ -50,7 +55,7 @@ function PropertyPage(): JSX.Element {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              {images.slice(0, 6).map((image) => (
+              {images?.slice(0, 6).map((image) => (
                 <div key={image} className="property__image-wrapper">
                   <img className="property__image" src={image} alt="Studio view" />
                 </div>))}
@@ -121,7 +126,7 @@ function PropertyPage(): JSX.Element {
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments?.length}</span></h2>
+                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments?.slice(0, 10).length}</span></h2>
                 <ReviewsList reviews={comments}/>
                 {authorizationStatus === AuthorizationStatus.Auth ? <FormReview currentId={currentId}/> : ''}
               </section>

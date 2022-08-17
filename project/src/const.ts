@@ -89,4 +89,9 @@ enum NameSpace {
   User = 'USER',
 }
 
-export {AppRoute, AuthorizationStatus, SortType, APIRoute, TIMEOUT_SHOW_ERROR, cities, NameSpace};
+enum ReviewLength {
+  Min = 50,
+  Max = 300,
+}
+
+export {AppRoute, AuthorizationStatus, SortType, APIRoute, TIMEOUT_SHOW_ERROR, cities, NameSpace, ReviewLength};

@@ -196,27 +196,51 @@ describe('Async actions', () => {
   });
 
 
-  it('should dispatch fetchNewCommentAction when POST /comments/id', async () => {
-    const mockNewComment = makeFakeComment() as Review;
-    const mockComments = makeFakeOfferProcess().comments as Review[];
-    const mockOffer = makeFakeOfferProcess().room as Place;
-    const id = mockOffer.id;
-    const {rating, comment} = mockNewComment;
+  describe('fetchNewCommentAction, server returns 200 or 400', () => {
+    it('should dispatch fetchNewCommentAction when POST /comments/id, successfull', async () => {
+      const mockNewComment = makeFakeComment() as Review;
+      const mockComments = makeFakeOfferProcess().comments as Review[];
+      const mockOffer = makeFakeOfferProcess().room as Place;
+      const id = mockOffer.id;
+      const {rating, comment} = mockNewComment;
 
-    mockAPI
-      .onPost(`${APIRoute.Comments}/${id}`)
-      .reply(200, mockComments);
+      mockAPI
+        .onPost(`${APIRoute.Comments}/${id}`)
+        .reply(200, mockComments);
 
-    const store = mockStore();
+      const store = mockStore();
 
-    await store.dispatch(fetchNewCommentAction({id, rating, review: comment}));
+      await store.dispatch(fetchNewCommentAction({id, rating, review: comment}));
 
-    const actions = store.getActions().map(({type}) => type);
+      const actions = store.getActions().map(({type}) => type);
 
-    expect(actions).toEqual([
-      fetchNewCommentAction.pending.type,
-      fetchNewCommentAction.fulfilled.type
-    ]);
+      expect(actions).toEqual([
+        fetchNewCommentAction.pending.type,
+        fetchNewCommentAction.fulfilled.type
+      ]);
+    });
+
+    it('should dispatch fetchNewCommentAction when POST /comments/id, non-succesfull', async () => {
+      const mockNewComment = makeFakeComment() as Review;
+      const mockOffer = makeFakeOfferProcess().room as Place;
+      const id = mockOffer.id;
+      const {rating, comment} = mockNewComment;
+
+      mockAPI
+        .onPost(`${APIRoute.Comments}/${id}`)
+        .reply(400);
+
+      const store = mockStore();
+
+      await store.dispatch(fetchNewCommentAction({id, rating, review: comment}));
+
+      const actions = store.getActions().map(({type}) => type);
+
+      expect(actions).toEqual([
+        fetchNewCommentAction.pending.type,
+        fetchNewCommentAction.rejected.type
+      ]);
+    });
   });
 
   it('should dispatch fetchAddToFavoritesAction when POST /favorite/id', async () => {

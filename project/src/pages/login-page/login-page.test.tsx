@@ -1,34 +1,39 @@
-import {render, screen} from '@testing-library/react';
+import {fireEvent, render, screen} from '@testing-library/react';
 import {createMemoryHistory} from 'history';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {Provider} from 'react-redux';
-import userEvent from '@testing-library/user-event';
 import HistoryRouter from '../../components/history-route/history-route';
 import LoginPage from './login-page';
 import '@testing-library/jest-dom/extend-expect';
+import { Route, Routes } from 'react-router-dom';
 
 const mockStore = configureMockStore();
 
 describe('Component: LoginPage', () => {
-  it('should render "LoginPage" when user navigate to "login" url', async () => {
+  it('should renderlogin page & redirect to main', () => {
     const history = createMemoryHistory();
     history.push('/login');
 
     render(
       <Provider store={mockStore({})}>
         <HistoryRouter history={history}>
-          <LoginPage />
+          <Routes>
+            <Route
+              path='/'
+              element={<h1>This is main page</h1>}
+            />
+            <Route
+              path='/login'
+              element={<LoginPage />}
+            />
+          </Routes>
         </HistoryRouter>
       </Provider>,
     );
 
-    expect(screen.getByLabelText(/E-mail/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/Password/i)).toBeInTheDocument();
+    expect(screen.getByTestId('random-city')).toBeInTheDocument();
 
-    await userEvent.type(screen.getByTestId('login'), 'tourist');
-    await userEvent.type(screen.getByTestId('password'), '12abc');
-
-    expect(screen.getByDisplayValue(/tourist/i)).toBeInTheDocument();
-    expect(screen.getByDisplayValue(/12abc/i)).toBeInTheDocument();
+    fireEvent.click(screen.getByTestId('random-city'));
+    expect(screen.getByText(/This is main page/i)).toBeInTheDocument();
   });
 });

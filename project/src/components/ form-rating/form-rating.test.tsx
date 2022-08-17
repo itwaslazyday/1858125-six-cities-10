@@ -6,7 +6,7 @@ describe('Component: FormRating', () => {
   it('should render correctly', () => {
 
     render(
-      <FormRating isChecked handleFieldChange={() => null} index={3}/>
+      <FormRating isChecked handleFieldChange={() => null} index={3} isDisabled={false}/>
     );
 
     expect(screen.getByTitle('Might be better!')).toBeInTheDocument();

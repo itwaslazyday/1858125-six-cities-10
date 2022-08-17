@@ -1,6 +1,6 @@
 import SortingItem from '../sorting-item/sorting-item';
 import {useAppSelector} from '../../hooks/useAppSelector/useAppSelector';
-import {memo, useState} from 'react';
+import {memo, useEffect, useState} from 'react';
 import {SortType} from '../../const';
 import {getCity} from '../../store/offers-process/selectors';
 
@@ -16,11 +16,13 @@ function SortingList({changeSortType, currentSortType}: SortingListProps): JSX.E
   const tappedCity = useAppSelector(getCity);
   const [currentCity, setCurrentCity] = useState<string>(tappedCity);
 
-  if (currentCity !== tappedCity) {
-    setCurrentCity(tappedCity);
-    setSortListVisibility(false);
-    changeSortType(SortType.Popular);
-  }
+  useEffect(() => {
+    if (currentCity !== tappedCity) {
+      setCurrentCity(tappedCity);
+      setSortListVisibility(false);
+      changeSortType(SortType.Popular);
+    }
+  }, [changeSortType, currentCity, tappedCity]);
 
   return (
     <div className="places__sorting">
