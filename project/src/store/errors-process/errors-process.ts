@@ -17,6 +17,9 @@ export const errorsProcess = createSlice({
   reducers: {
     changeNewCommentError: (state, action) => {
       state.newCommentError = action.payload;
+    },
+    changeOfferDataError: (state, action) => {
+      state.offerDataError = action.payload;
     }
   },
   extraReducers(builder) {
@@ -42,4 +45,4 @@ export const errorsProcess = createSlice({
   }
 });
 
-export const {changeNewCommentError} = errorsProcess.actions;
+export const {changeNewCommentError, changeOfferDataError} = errorsProcess.actions;

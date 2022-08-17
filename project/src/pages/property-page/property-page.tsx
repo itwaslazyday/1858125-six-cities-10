@@ -14,6 +14,7 @@ import {AuthorizationStatus, AppRoute} from '../../const';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import {getOfferDataError} from '../../store/errors-process/selectors';
 import {getRoom, getNearby, getComments} from '../../store/offer-process/selectors';
+import {changeOfferDataError} from '../../store/errors-process/errors-process';
 
 function PropertyPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -36,6 +37,7 @@ function PropertyPage(): JSX.Element {
       return (<LoadingScreen />);
     }
   } else {
+    dispatch(changeOfferDataError(false));
     return (<Navigate to={AppRoute.NotFound} />);
   }
 
