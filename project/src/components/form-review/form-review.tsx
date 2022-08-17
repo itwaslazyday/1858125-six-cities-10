@@ -25,6 +25,7 @@ function FormReview({currentId}: FormReviewProps): JSX.Element {
       id: currentId
     }
   );
+  const [formDisabled, setFormDisabled] = useState<boolean>(false);
 
   const handleFieldChange = (evt: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>): void => {
     const {name, value} = evt.target;
@@ -32,22 +33,33 @@ function FormReview({currentId}: FormReviewProps): JSX.Element {
     dispatch(changeNewCommentError(false));
   };
 
+  const clearNewCommentError = () => setTimeout(() => {
+    dispatch(changeNewCommentError(false));
+  }, 2500);
+
   const getRatingFields = () => {
     const ratingFields = [];
     for (let i = 5; i > 0; i--) {
-      ratingFields.push(<FormRating key={i} index={i} handleFieldChange={handleFieldChange} isChecked={Number(formState.rating) === i}/>);
+      ratingFields.push(
+        <FormRating key={i} index={i} handleFieldChange={handleFieldChange}
+          isChecked={Number(formState.rating) === i} isDisabled={formDisabled}
+        />
+      );
     }
     return ratingFields;
   };
 
-  const onSubmit = (newReview: NewReview) => {
-    dispatch(fetchNewCommentAction(newReview));
+  const onSubmit = async (newReview: NewReview) => {
+    await dispatch(fetchNewCommentAction(newReview));
+    setFormDisabled(false);
   };
 
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
+    setFormDisabled(true);
     onSubmit(formState);
     setFormState({...formState, review: '', rating: 0});
+    clearNewCommentError();
   };
 
   return (
@@ -66,6 +78,7 @@ function FormReview({currentId}: FormReviewProps): JSX.Element {
         onChange={handleFieldChange}
         id="review" name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
+        disabled={formDisabled}
         data-testid="review"
       >
       </textarea>
