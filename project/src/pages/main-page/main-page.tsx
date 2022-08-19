@@ -9,7 +9,7 @@ import SortingList from '../../components/sorting-list/sorting-list';
 import {SortType, cities} from '../../const';
 import {getCity} from '../../store/offers-process/selectors';
 import {getOffers} from '../../store/offers-process/selectors';
-import MainPageEmpty from './main-page-empty';
+import MainPageEmpty from '../main-page-empty/main-page-empty';
 
 function MainPage(): JSX.Element {
   const [hoveredCard, setHoveredCard] = useState<Place | undefined>(undefined);

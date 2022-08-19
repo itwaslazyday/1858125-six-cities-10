@@ -41,7 +41,7 @@ function SiteHeader(): JSX.Element {
               </li>
               {isAuthorized &&
               <li className="header__nav-item">
-                <a href="/" className="header__nav-link" onClick={handleSignOut}>
+                <a href="/" className="header__nav-link" onClick={handleSignOut} data-testid='header-signout'>
                   <span className="header__signout">Sign out</span>
                 </a>
               </li>}

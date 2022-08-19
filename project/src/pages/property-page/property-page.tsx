@@ -72,6 +72,7 @@ function PropertyPage(): JSX.Element {
                   className={`property__bookmark-button button ${isFavorite ? 'property__bookmark-button--active' : ''}`}
                   type="button"
                   onClick={handleFavoriteButtonClick}
+                  data-testid='bookmark-button'
                 >
                   <svg className="place-card__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>

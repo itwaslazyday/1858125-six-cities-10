@@ -18,13 +18,13 @@ const getSortedPlaces = (places: Place[], sortType: string) => {
   let sortedPlaces;
   switch (sortType) {
     case SortType.LowToHigh:
-      sortedPlaces = places.sort(sortLowToHigh);
+      sortedPlaces = places.slice().sort(sortLowToHigh);
       break;
     case SortType.HighToLow:
-      sortedPlaces = places.sort(sortHighToLow);
+      sortedPlaces = places.slice().sort(sortHighToLow);
       break;
     case SortType.TopRated:
-      sortedPlaces = places.sort(sortByTopRated);
+      sortedPlaces = places.slice().sort(sortByTopRated);
       break;
     default:
       sortedPlaces = places;

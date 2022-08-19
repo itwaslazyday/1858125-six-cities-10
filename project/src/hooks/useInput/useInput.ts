@@ -17,7 +17,7 @@ function useInput (initialValue: string, validations: Validations) {
     setName(evt.target.name);
   };
 
-  const onBlur = (evt: ChangeEvent<HTMLInputElement>) => {
+  const onBlur = () => {
     setDirty(true);
   };
 
