@@ -4,7 +4,7 @@ import {render, screen} from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import {Provider} from 'react-redux';
 import {configureMockStore} from '@jedmao/redux-mock-store';
-import HistoryRouter from '../history-route/history-route';
+import HistoryRouter from '../history-router/history-router';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import PrivateRoute from './private-route';
 

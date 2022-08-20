@@ -10,12 +10,17 @@ import {useAppSelector} from '../../hooks/useAppSelector/useAppSelector';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import {getDataLoadedStatus} from '../../store/offers-process/selectors';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
+import { getOffersDataError } from '../../store/errors-process/selectors';
+import ServerErrorScreen from '../../pages/server-error-screen/server-error-screen';
 
 function App(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const isDataLoaded = useAppSelector(getDataLoadedStatus);
+  const offersDataError = useAppSelector(getOffersDataError);
 
-  if (!isDataLoaded) {
+  if (offersDataError) {
+    return (<ServerErrorScreen />);
+  } else if (!isDataLoaded) {
     return (
       <LoadingScreen />
     );

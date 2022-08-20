@@ -1,7 +1,7 @@
 import MainPage from './main-page';
 import {fireEvent, render, screen} from '@testing-library/react';
 import {createMemoryHistory} from 'history';
-import HistoryRouter from '../../components/history-route/history-route';
+import HistoryRouter from '../../components/history-router/history-router';
 import {Provider} from 'react-redux';
 import '@testing-library/jest-dom/extend-expect';
 import { Route, Routes } from 'react-router-dom';

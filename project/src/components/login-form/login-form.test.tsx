@@ -3,7 +3,7 @@ import {createMemoryHistory} from 'history';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {Provider} from 'react-redux';
 import userEvent from '@testing-library/user-event';
-import HistoryRouter from '../../components/history-route/history-route';
+import HistoryRouter from '../history-router/history-router';
 import LoginForm from './login-form';
 import '@testing-library/jest-dom/extend-expect';
 

@@ -2,7 +2,7 @@ import {render, screen} from '@testing-library/react';
 import {createMemoryHistory} from 'history';
 import {Provider} from 'react-redux';
 import {configureMockStore} from '@jedmao/redux-mock-store';
-import HistoryRouter from '../history-route/history-route';
+import HistoryRouter from '../history-router/history-router';
 import {AuthorizationStatus, AppRoute} from '../../const';
 import App from './app';
 import '@testing-library/jest-dom/extend-expect';

@@ -2,7 +2,7 @@ import {fireEvent, render, screen} from '@testing-library/react';
 import {createMemoryHistory} from 'history';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {Provider} from 'react-redux';
-import HistoryRouter from '../../components/history-route/history-route';
+import HistoryRouter from '../../components/history-router/history-router';
 import LoginPage from './login-page';
 import '@testing-library/jest-dom/extend-expect';
 import { Route, Routes } from 'react-router-dom';

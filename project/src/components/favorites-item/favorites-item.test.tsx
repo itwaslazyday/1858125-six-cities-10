@@ -2,7 +2,7 @@ import {render, screen} from '@testing-library/react';
 import FavoritesItem from './favorites-item';
 import '@testing-library/jest-dom/extend-expect';
 import { makeFakeOffersProcess } from '../../utiles/mocks';
-import HistoryRouter from '../history-route/history-route';
+import HistoryRouter from '../history-router/history-router';
 import { Provider } from 'react-redux';
 import { store } from '../../store';
 import { createMemoryHistory } from 'history';

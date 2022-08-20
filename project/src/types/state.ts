@@ -23,6 +23,7 @@ type OfferProcess = {
 
 type ErrorsProcess = {
   authError: boolean,
+  offersDataError: boolean,
   offerDataError: boolean,
   offerCommentsError: boolean,
   newCommentError: boolean,

@@ -1,7 +1,7 @@
 import {render, screen} from '@testing-library/react';
 import {Routes, Route} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
-import HistoryRouter from '../history-route/history-route';
+import HistoryRouter from '../history-router/history-router';
 import Logo from './logo';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom/extend-expect';

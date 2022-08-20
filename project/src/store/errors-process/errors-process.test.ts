@@ -1,6 +1,6 @@
 import {errorsProcess} from './errors-process';
 import {ErrorsProcess} from '../../types/state';
-import {checkAuthAction, fetchCommentsAction, fetchOfferAction, fetchNearbyPlacesAction, loginAction} from '../api-actions';
+import {checkAuthAction, fetchCommentsAction, fetchOfferAction, fetchNearbyPlacesAction, loginAction, fetchOffersAction} from '../api-actions';
 
 describe('Reducer: errors', () => {
   let state: ErrorsProcess;
@@ -8,6 +8,7 @@ describe('Reducer: errors', () => {
   beforeEach(() => {
     state = {
       authError: false,
+      offersDataError: false,
       offerDataError: false,
       offerCommentsError: false,
       newCommentError: false,
@@ -24,6 +25,13 @@ describe('Reducer: errors', () => {
     it('should cnahge offerDataError to true', () => {
       expect(errorsProcess.reducer(state, {type: fetchOfferAction.rejected.type}))
         .toEqual({...state, offerDataError: true});
+    });
+  });
+
+  describe('fetchOffersAction test', () => {
+    it('should cnahge offersDataError to true', () => {
+      expect(errorsProcess.reducer(state, {type: fetchOffersAction.rejected.type}))
+        .toEqual({...state, offersDataError: true});
     });
   });
 
